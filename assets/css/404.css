@@ -1,0 +1,183 @@
+:root body {
+  min-height: 100vh;
+  width: 100%;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  overflow-x: hidden;
+  text-align: center;
+  padding: 2rem;
+  /* Fondo de seguridad por si no carga el CSS externo */
+  background-color: #fdfbf6;
+  color: #1a1a1a;
+  background-image: radial-gradient(#e0ded5 1px, transparent 1px);
+  background-size: 30px 30px;
+}
+
+/* --- CANVAS --- */
+#drawing-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  pointer-events: auto;
+}
+
+/* --- CONTENEDOR ERROR --- */
+.error-container {
+  z-index: 10;
+  position: relative;
+  pointer-events: none;
+  width: 100%;
+  max-width: 800px;
+}
+
+.error-content-wrapper {
+  pointer-events: auto;
+  position: relative; /* Para que el fantasma se posicione respecto a esto */
+}
+
+.error-code {
+  font-family: "Syne", sans-serif;
+  font-size: clamp(6rem, 25vw, 15rem);
+  line-height: 0.8;
+  font-weight: 800;
+  margin-bottom: 0;
+  color: #ff595e;
+  mix-blend-mode: multiply;
+}
+
+.error-msg {
+  font-family: "Syne", sans-serif;
+  font-size: clamp(1.2rem, 4vw, 2rem);
+  margin-top: 1rem;
+  margin-bottom: 3rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #1a1a1a;
+}
+
+/* --- BOTÓN --- */
+.btn-home {
+  background: #1a1a1a;
+  color: #fdfbf6;
+  padding: 15px 40px;
+  border-radius: 50px;
+  font-family: "Syne", sans-serif;
+  font-weight: 700;
+  text-decoration: none;
+  transition: transform 0.3s ease;
+  display: inline-block;
+  border: 2px solid #1a1a1a;
+  cursor: none;
+  white-space: nowrap;
+}
+
+.btn-home:hover {
+  transform: scale(1.05);
+  background: transparent;
+  color: #1a1a1a;
+}
+
+/* --- FANTASMA (Estilos Integrados para asegurar visualización) --- */
+.mascot-container {
+  position: absolute;
+  top: -15%; /* Ajustado para que asome por arriba */
+  right: 5%;
+  width: clamp(100px, 18vw, 180px);
+  aspect-ratio: 150/180; /* Mantiene la forma sin aplastarse */
+  z-index: -1;
+  animation: float-404 6s ease-in-out infinite;
+  opacity: 0.9;
+}
+
+/* Cuerpo del Fantasma */
+.mascot-body {
+  width: 100%;
+  height: 100%;
+  background: #2b59c3; /* Azul */
+  border-radius: 50% 50% 0 0;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 10px 10px 0px rgba(0, 0, 0, 0.1);
+}
+
+/* Ojos */
+.mascot-body::before,
+.mascot-body::after {
+  content: "";
+  position: absolute;
+  top: 40%;
+  width: 15px;
+  height: 25px;
+  background: #fff;
+  border-radius: 50px;
+  animation: blink 4s infinite;
+}
+.mascot-body::before {
+  left: 35%;
+}
+.mascot-body::after {
+  right: 35%;
+}
+
+/* Ondas de abajo (Piernas) */
+.mascot-legs {
+  position: absolute;
+  bottom: -10px;
+  left: 0;
+  width: 100%;
+  height: 20px;
+  background-size: 30px 30px;
+  /* Truco CSS para hacer ondas con gradientes */
+  background-image: radial-gradient(
+    circle at 15px 0,
+    #2b59c3 15px,
+    transparent 16px
+  );
+  background-repeat: repeat-x;
+}
+
+@keyframes float-404 {
+  0%,
+  100% {
+    transform: translateY(0) rotate(5deg);
+  }
+  50% {
+    transform: translateY(-20px) rotate(-5deg);
+  }
+}
+
+@keyframes blink {
+  0%,
+  96%,
+  100% {
+    height: 25px;
+  }
+  98% {
+    height: 2px;
+  }
+}
+
+/* --- HERRAMIENTAS FIJAS --- */
+.tools-panel-fixed {
+  position: fixed;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 100;
+  display: flex;
+  gap: 15px;
+  background: #fff;
+  padding: 10px 25px;
+  border-radius: 50px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}

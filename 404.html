@@ -1,50 +1,562 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>404 – Page Not Found</title>
+    <title>404 | Fuera del Lienzo</title>
+
+    <!-- Bootstrap 5 -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+
+    <!-- Fuentes -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Syne:wght@400;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Iconos -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+
+    <!-- CSS Global -->
+    <link rel="stylesheet" href="assets/css/style.css" />
+
     <style>
+      /* --- ESTILOS GENERALES 404 --- */
       body {
+        min-height: 100vh;
+        width: 100%;
         margin: 0;
-        font-family: system-ui, sans-serif;
-        background: #f5f5f5;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        overflow-x: hidden;
+        text-align: center;
+        padding: 2rem;
+        background-color: #fdfbf6;
+        color: #1a1a1a;
+        background-image: radial-gradient(#e0ded5 1px, transparent 1px);
+        background-size: 30px 30px;
+      }
+
+      /* --- CANVAS --- */
+      #drawing-canvas {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 1;
+        pointer-events: auto;
+      }
+
+      /* --- CONTENEDOR ERROR --- */
+      .error-container {
+        z-index: 10;
+        position: relative;
+        pointer-events: none;
+        width: 100%;
+        max-width: 800px;
+      }
+
+      .error-content-wrapper {
+        pointer-events: auto;
+        position: relative;
+      }
+
+      .error-code {
+        font-family: "Syne", sans-serif;
+        font-size: clamp(6rem, 25vw, 15rem);
+        line-height: 0.8;
+        font-weight: 800;
+        margin-bottom: 0;
+        color: #ff595e;
+        mix-blend-mode: multiply;
+      }
+
+      .error-msg {
+        font-family: "Syne", sans-serif;
+        font-size: clamp(1.2rem, 4vw, 2rem);
+        margin-top: 1rem;
+        margin-bottom: 3rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        color: #1a1a1a;
+      }
+
+      /* --- BOTÓN HOME --- */
+      .btn-home {
+        background: #1a1a1a;
+        color: #fdfbf6;
+        padding: 15px 40px;
+        border-radius: 50px;
+        font-family: "Syne", sans-serif;
+        font-weight: 700;
+        text-decoration: none;
+        transition: transform 0.3s ease;
+        display: inline-block;
+        border: 2px solid #1a1a1a;
+        cursor: none;
+        white-space: nowrap;
+      }
+
+      .btn-home:hover {
+        transform: scale(1.05);
+        background: transparent;
+        color: #1a1a1a;
+      }
+
+      /* --- FANTASMA --- */
+      .mascot-container {
+        position: absolute;
+        bottom: 0;
+        top: auto;
+        right: 10%;
+        width: clamp(100px, 18vw, 180px);
+        aspect-ratio: 150/180;
+        z-index: -1;
+        animation: float-404 6s ease-in-out infinite;
+        opacity: 0.9;
+      }
+
+      .mascot-body {
+        width: 100%;
+        height: 100%;
+        background: #2b59c3;
+        border-radius: 50% 50% 0 0;
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        box-shadow: 10px 10px 0px rgba(0, 0, 0, 0.1);
+      }
+
+      .mascot-body::before,
+      .mascot-body::after {
+        content: "";
+        position: absolute;
+        top: 40%;
+        width: 15px;
+        height: 25px;
+        background: #fff;
+        border-radius: 50px;
+        animation: blink 4s infinite;
+      }
+      .mascot-body::before {
+        left: 35%;
+      }
+      .mascot-body::after {
+        right: 35%;
+      }
+
+      .mascot-legs {
+        position: absolute;
+        bottom: -10px;
+        left: 0;
+        width: 100%;
+        height: 20px;
+        background-size: 30px 30px;
+        background-image: radial-gradient(
+          circle at 15px 0,
+          #2b59c3 15px,
+          transparent 16px
+        );
+        background-repeat: repeat-x;
+      }
+
+      @keyframes float-404 {
+        0%,
+        100% {
+          transform: translateY(0) rotate(5deg);
+        }
+        50% {
+          transform: translateY(10px) rotate(-5deg);
+        }
+      }
+
+      @keyframes blink {
+        0%,
+        96%,
+        100% {
+          height: 25px;
+        }
+        98% {
+          height: 2px;
+        }
+      }
+
+      /* --- HERRAMIENTAS FIJAS --- */
+      .tools-panel-fixed {
+        position: fixed;
+        bottom: 30px;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 100;
+        display: flex;
+        gap: 15px;
+        background: #fff;
+        padding: 10px 25px;
+        border-radius: 50px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        border: 1px solid rgba(0, 0, 0, 0.1);
+      }
+
+      /* --- WIDGET IDIOMA (DESPLIEGUE HORIZONTAL) --- */
+      #lang-widget {
+        position: fixed;
+        bottom: 20px;
+        left: 30px;
+        z-index: 1001;
+        display: flex;
+        flex-direction: row; /* Alineación horizontal */
+        align-items: center;
+        gap: 15px;
+      }
+
+      /* Botón Principal */
+      #lang-toggle-btn {
+        background: #1a1a1a;
+        color: #fdfbf6;
+        border: 1px solid #1a1a1a;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        font-family: "Syne", sans-serif;
+        font-weight: 700;
+        cursor: none;
+        transition: all 0.3s ease;
+        text-transform: uppercase;
+        font-size: 0.9rem;
         display: flex;
         align-items: center;
         justify-content: center;
-        height: 100vh;
-        text-align: center;
-        color: #333;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
       }
-      .container {
-        padding: 20px;
+
+      #lang-toggle-btn:hover {
+        transform: scale(1.1);
       }
-      h1 {
-        font-size: 6rem;
-        margin: 0;
+
+      /* Menú Desplegable Horizontal */
+      #lang-menu {
+        display: flex;
+        flex-direction: row; /* Opciones en fila */
+        gap: 10px;
+        opacity: 0;
+        pointer-events: none;
+        transform: translateX(-20px); /* Animación desde la izquierda */
+        transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
       }
-      p {
-        font-size: 1.2rem;
-        margin: 10px 0 30px;
+
+      #lang-widget.active #lang-menu {
+        opacity: 1;
+        pointer-events: auto;
+        transform: translateX(0);
       }
-      a {
-        padding: 10px 20px;
-        background: #0078ff;
-        color: #fff;
-        text-decoration: none;
-        border-radius: 6px;
-        font-size: 1rem;
+
+      #lang-widget.active #lang-toggle-btn {
+        background: #fdfbf6;
+        color: #1a1a1a;
+        transform: rotate(90deg); /* Rotación para apertura lateral */
       }
-      a:hover {
-        background: #005fcc;
+
+      .lang-option {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background: #fdfbf6;
+        color: #1a1a1a;
+        border: 1px solid #1a1a1a;
+        font-family: "Inter", sans-serif;
+        font-weight: 600;
+        font-size: 0.75rem;
+        cursor: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.2s ease;
+        text-transform: uppercase;
+      }
+
+      .lang-option:hover {
+        background: #1a1a1a;
+        color: #fdfbf6;
+        transform: scale(1.1);
+      }
+
+      .lang-option.selected {
+        background: #1a1a1a;
+        color: #fdfbf6;
+      }
+
+      @media (max-width: 767px) {
+        #lang-widget {
+          bottom: 20px;
+          left: 20px;
+        }
       }
     </style>
   </head>
   <body>
-    <div class="container">
-      <h1>404</h1>
-      <p>Sorry, the page you're looking for doesn't exist.</p>
-      <a href="/">Go Home</a>
+    <!-- Cursor -->
+    <div id="cursor"></div>
+
+    <!-- Canvas -->
+    <canvas id="drawing-canvas"></canvas>
+
+    <!-- Contenido -->
+    <div class="error-container">
+      <div class="error-content-wrapper">
+        <!-- FANTASMA -->
+        <div class="mascot-container">
+          <div class="mascot-body">
+            <div class="mascot-legs"></div>
+          </div>
+        </div>
+
+        <h1 class="error-code hover-trigger">404</h1>
+        <!-- Texto Traducible -->
+        <p class="error-msg" data-lang="error-msg">Te has salido del lienzo</p>
+
+        <!-- Botón Traducible -->
+        <a
+          href="index.html"
+          class="btn-home hover-trigger"
+          data-lang="btn-home"
+        >
+          <i class="fa-solid fa-arrow-left me-2"></i> VOLVER AL ESTUDIO
+        </a>
+      </div>
     </div>
+
+    <!-- WIDGET DE IDIOMA (Drop-RIGHT) -->
+    <div id="lang-widget">
+      <!-- Botón Principal (Primero) -->
+      <button
+        id="lang-toggle-btn"
+        class="hover-trigger"
+        onclick="toggleLangMenu()"
+      >
+        <i class="fa-solid fa-globe"></i>
+      </button>
+
+      <!-- Menú Oculto (Segundo, sale a la derecha) -->
+      <div id="lang-menu">
+        <button
+          class="lang-option hover-trigger selected"
+          onclick="setLanguage404('es')"
+        >
+          ES
+        </button>
+        <button
+          class="lang-option hover-trigger"
+          onclick="setLanguage404('en')"
+        >
+          EN
+        </button>
+        <button
+          class="lang-option hover-trigger"
+          onclick="setLanguage404('nl')"
+        >
+          NL
+        </button>
+      </div>
+    </div>
+
+    <!-- UI Herramientas (CON AMARILLO AÑADIDO) -->
+    <div class="tools-panel-fixed" id="tools-panel">
+      <div
+        class="color-dot hover-trigger"
+        style="
+          width: 24px;
+          height: 24px;
+          border-radius: 50%;
+          background: #1a1a1a;
+          border: 1px solid #ddd;
+        "
+        onclick="setColor('#1A1A1A')"
+      ></div>
+      <div
+        class="color-dot hover-trigger"
+        style="
+          width: 24px;
+          height: 24px;
+          border-radius: 50%;
+          background: #2b59c3;
+        "
+        onclick="setColor('#2B59C3')"
+      ></div>
+      <!-- Color Amarillo Añadido Aquí -->
+      <div
+        class="color-dot hover-trigger"
+        style="
+          width: 24px;
+          height: 24px;
+          border-radius: 50%;
+          background: #f4d35e;
+        "
+        onclick="setColor('#F4D35E')"
+      ></div>
+      <div
+        class="color-dot hover-trigger"
+        style="
+          width: 24px;
+          height: 24px;
+          border-radius: 50%;
+          background: #ff595e;
+        "
+        onclick="setColor('#FF595E')"
+      ></div>
+      <div style="width: 1px; background: #ccc; margin: 0 5px"></div>
+      <i
+        class="fa-solid fa-trash hover-trigger pt-1"
+        onclick="clearCanvas()"
+        style="color: #1a1a1a; font-size: 1.2rem"
+      ></i>
+    </div>
+
+    <script>
+      // --- 1. LÓGICA DE IDIOMA ---
+      const translations404 = {
+        es: {
+          "error-msg": "Te has salido del lienzo",
+          "btn-home":
+            "<i class='fa-solid fa-arrow-left me-2'></i> VOLVER AL ESTUDIO",
+        },
+        en: {
+          "error-msg": "You've gone off the canvas",
+          "btn-home":
+            "<i class='fa-solid fa-arrow-left me-2'></i> BACK TO STUDIO",
+        },
+        nl: {
+          "error-msg": "Je bent buiten het canvas getreden",
+          "btn-home":
+            "<i class='fa-solid fa-arrow-left me-2'></i> TERUG NAAR STUDIO",
+        },
+      };
+
+      let currentLang404 = "es";
+
+      function toggleLangMenu() {
+        document.getElementById("lang-widget").classList.toggle("active");
+      }
+
+      function setLanguage404(lang) {
+        currentLang404 = lang;
+
+        document.querySelectorAll(".lang-option").forEach((btn) => {
+          btn.classList.remove("selected");
+          if (btn.innerText.toLowerCase() === lang)
+            btn.classList.add("selected");
+        });
+
+        document.querySelectorAll("[data-lang]").forEach((el) => {
+          const key = el.getAttribute("data-lang");
+          if (translations404[currentLang404][key]) {
+            el.innerHTML = translations404[currentLang404][key];
+          }
+        });
+
+        toggleLangMenu();
+      }
+
+      // --- 2. CURSOR ---
+      const cursor = document.getElementById("cursor");
+
+      document.addEventListener("mousemove", (e) => {
+        cursor.style.left = e.clientX + "px";
+        cursor.style.top = e.clientY + "px";
+      });
+
+      document.querySelectorAll(".hover-trigger").forEach((el) => {
+        el.addEventListener("mouseenter", () =>
+          cursor.classList.add("hovered")
+        );
+        el.addEventListener("mouseleave", () =>
+          cursor.classList.remove("hovered")
+        );
+      });
+
+      // --- 3. CANVAS ---
+      const canvas = document.getElementById("drawing-canvas");
+      const ctx = canvas.getContext("2d");
+      let isDrawing = false;
+      let lastX = 0,
+        lastY = 0;
+      let strokeColor = "#1A1A1A";
+
+      function resizeCanvas() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        ctx.lineCap = "round";
+        ctx.lineJoin = "round";
+        ctx.lineWidth = 3;
+        ctx.strokeStyle = strokeColor;
+      }
+
+      window.addEventListener("resize", resizeCanvas);
+      resizeCanvas();
+
+      function draw(e) {
+        if (!isDrawing) return;
+        const x = e.type.includes("touch") ? e.touches[0].clientX : e.clientX;
+        const y = e.type.includes("touch") ? e.touches[0].clientY : e.clientY;
+        ctx.beginPath();
+        ctx.moveTo(lastX, lastY);
+        ctx.lineTo(x, y);
+        ctx.stroke();
+        [lastX, lastY] = [x, y];
+      }
+
+      canvas.addEventListener("mousedown", (e) => {
+        isDrawing = true;
+        [lastX, lastY] = [e.clientX, e.clientY];
+        cursor.classList.add("drawing");
+      });
+
+      window.addEventListener("mouseup", () => {
+        isDrawing = false;
+        cursor.classList.remove("drawing");
+      });
+
+      canvas.addEventListener("mousemove", draw);
+
+      // Touch
+      canvas.addEventListener(
+        "touchstart",
+        (e) => {
+          isDrawing = true;
+          const t = e.touches[0];
+          [lastX, lastY] = [t.clientX, t.clientY];
+        },
+        { passive: false }
+      );
+      canvas.addEventListener(
+        "touchmove",
+        (e) => {
+          if (isDrawing) e.preventDefault();
+          draw(e);
+        },
+        { passive: false }
+      );
+      canvas.addEventListener("touchend", () => (isDrawing = false));
+
+      function setColor(color) {
+        strokeColor = color;
+        ctx.strokeStyle = color;
+      }
+      function clearCanvas() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+      }
+    </script>
   </body>
 </html>

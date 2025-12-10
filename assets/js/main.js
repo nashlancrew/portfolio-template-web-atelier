@@ -245,51 +245,37 @@ function setupHoverEffects() {
       );
     });
 }
-/* --- TRADUCCIONES Y LÓGICA DE IDIOMA --- */
-const translations = {
-  es: {
-    "hero-title": "HOLA,<br>SOY TEA",
-    "hero-subtitle": "Portfolio & Visual Playground",
-    "about-title": "CREATIVIDAD<br>SIN LÍMITES",
-    "about-text":
-      "Hola, soy Tea. Diseñadora visual e ilustradora. Este sitio es un lienzo vivo; no solo para mostrar mi trabajo, sino para que interactúes con él.",
-    "nav-playground": "PLAYGROUND",
-    "nav-about": "ABOUT",
-    "nav-archive": "ARCHIVO",
-    "nav-contact": "CONTACTO",
-    "footer-title": "HABLEMOS",
-    "btn-project": "INICIAR PROYECTO",
-  },
-  en: {
-    "hero-title": "HELLO,<br>I'M TEA",
-    "hero-subtitle": "Portfolio & Visual Playground",
-    "about-title": "LIMITLESS<br>CREATIVITY",
-    "about-text":
-      "Hi, I'm Tea. Visual designer and illustrator. This site is a living canvas; not just to show my work, but for you to interact with it.",
-    "nav-playground": "PLAYGROUND",
-    "nav-about": "ABOUT",
-    "nav-archive": "ARCHIVE",
-    "nav-contact": "CONTACT",
-    "footer-title": "LET'S TALK",
-    "btn-project": "START PROJECT",
-  },
-};
+// --- LÓGICA DE MÚSICA ---
+let isMusicPlaying = false;
+const audioPlayer = document.getElementById("audio-player");
 
-let currentLang = "es";
+// Volumen bajo para no asustar
+if (audioPlayer) audioPlayer.volume = 0.4;
 
-function toggleLanguage() {
-  // 1. Cambiar idioma
-  currentLang = currentLang === "es" ? "en" : "es";
+function toggleMusic() {
+  const cdPlayer = document.querySelector(".cd-player");
+  const playIcon = document.getElementById("play-icon");
+  const pauseIcon = document.getElementById("pause-icon");
 
-  // 2. Cambiar texto del botón
-  const btn = document.getElementById("lang-toggle");
-  if (btn) btn.innerText = currentLang === "es" ? "EN / ES" : "ES / EN";
-
-  // 3. Buscar y traducir textos
-  document.querySelectorAll("[data-lang]").forEach((el) => {
-    const key = el.getAttribute("data-lang");
-    if (translations[currentLang][key]) {
-      el.innerHTML = translations[currentLang][key];
-    }
-  });
+  if (!isMusicPlaying) {
+    // Reproducir
+    audioPlayer
+      .play()
+      .then(() => {
+        isMusicPlaying = true;
+        cdPlayer.classList.add("playing");
+        playIcon.style.display = "none";
+        pauseIcon.style.display = "block";
+      })
+      .catch((error) => {
+        console.log("Autoplay bloqueado. Haz clic de nuevo.");
+      });
+  } else {
+    // Pausar
+    audioPlayer.pause();
+    isMusicPlaying = false;
+    cdPlayer.classList.remove("playing");
+    playIcon.style.display = "block";
+    pauseIcon.style.display = "none";
+  }
 }
