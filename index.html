@@ -4,602 +4,26 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>TEA | Portfolio Digital</title>
-
     <!-- Bootstrap 5 CSS -->
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
       rel="stylesheet"
     />
-
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <!-- Google Fonts (Syne e Inter) -->
     <link
       href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Syne:wght@400;700;800&display=swap"
       rel="stylesheet"
     />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <!--Stylesheet-->
+    <link rel="stylesheet" href="assets/css/style.css" />
 
     <!-- Icons -->
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
     />
-
-    <style>
-      :root {
-        --bg-color: #fdfbf6;
-        --dot-color: #e0ded5;
-        --text-main: #1a1a1a;
-        --text-muted: #6c757d;
-        --accent: #2b59c3;
-        --highlight: #f4d35e;
-        --panel-bg: #ffffff;
-        --border-color: rgba(0, 0, 0, 0.1);
-
-        --font-display: "Syne", sans-serif;
-        --font-body: "Inter", sans-serif;
-      }
-
-      body.dark-mode {
-        --bg-color: #0f0f0f;
-        --dot-color: #2a2a2a;
-        --text-main: #fdfbf6;
-        --text-muted: #a0a0a0;
-        --accent: #4d7bf3;
-        --panel-bg: #1a1a1a;
-        --border-color: rgba(255, 255, 255, 0.1);
-      }
-
-      /* LENIS SMOOTH SCROLL */
-      html.lenis {
-        height: auto;
-      }
-      .lenis.lenis-smooth {
-        scroll-behavior: auto;
-      }
-      .lenis.lenis-smooth [data-lenis-prevent] {
-        overscroll-behavior: contain;
-      }
-      .lenis.lenis-stopped {
-        overflow: hidden;
-      }
-
-      body {
-        background-color: var(--bg-color);
-        color: var(--text-main);
-        font-family: var(--font-body);
-        overflow-x: hidden;
-        cursor: none;
-        margin: 0;
-        background-image: radial-gradient(
-          var(--dot-color) 1px,
-          transparent 1px
-        );
-        background-size: 30px 30px;
-        transition: background-color 0.3s ease, color 0.3s ease;
-      }
-
-      h1,
-      h2,
-      h3,
-      h4,
-      .btn-link,
-      .nav-link {
-        font-family: var(--font-display);
-        font-weight: 800;
-        text-transform: uppercase;
-        letter-spacing: -0.02em;
-      }
-      p {
-        font-weight: 300;
-        line-height: 1.6;
-        color: var(--text-main);
-      }
-      .text-muted {
-        color: var(--text-muted) !important;
-      }
-
-      /* --- CURSOR --- */
-      #cursor {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 14px;
-        height: 14px;
-        background: var(--text-main);
-        pointer-events: none;
-        z-index: 9999;
-        transform: translate(-50%, -50%);
-        transition: width 0.2s cubic-bezier(0.075, 0.82, 0.165, 1),
-          height 0.2s cubic-bezier(0.075, 0.82, 0.165, 1), background-color 0.2s;
-        mix-blend-mode: exclusion;
-      }
-      #cursor.hovered {
-        width: 40px;
-        height: 40px;
-        background: transparent;
-        border: 2px solid var(--text-main);
-      }
-      #cursor.drawing {
-        width: 8px;
-        height: 8px;
-        background: var(--accent);
-        border: none;
-      }
-
-      /* --- NAVBAR --- */
-      .navbar {
-        padding: 2rem 3rem;
-        z-index: 1000;
-        transition: padding 0.3s;
-      }
-      .navbar-brand,
-      .nav-link,
-      .navbar-btn {
-        color: var(--text-main) !important;
-      }
-      .nav-link {
-        position: relative;
-        margin-left: 1.5rem;
-        font-size: 0.9rem;
-        letter-spacing: 0.05em;
-      }
-      .nav-link::after {
-        content: "";
-        position: absolute;
-        bottom: -5px;
-        left: 0;
-        width: 0;
-        height: 1px;
-        background: var(--text-main);
-        transition: width 0.3s ease;
-      }
-      .nav-link:hover::after {
-        width: 100%;
-      }
-
-      /* --- HERO & CANVAS --- */
-      #hero {
-        height: 100dvh;
-        width: 100%;
-        position: relative;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        min-height: 700px;
-      }
-
-      #drawing-canvas {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        z-index: 1;
-        touch-action: none;
-        /* IMPORTANTE: Desactivado por defecto para scroll suave */
-        pointer-events: none;
-      }
-
-      /* Clase que activa el dibujo */
-      body.drawing-enabled #drawing-canvas {
-        pointer-events: auto;
-      }
-      body.drawing-enabled {
-        overflow: hidden;
-      } /* Bloquea scroll al dibujar */
-
-      .hero-text-container {
-        position: relative;
-        z-index: 3;
-        text-align: center;
-        pointer-events: none;
-        transition: opacity 0.5s ease, transform 0.5s ease;
-      }
-
-      .hero-content-hidden {
-        opacity: 0 !important;
-        transform: scale(0.9);
-        pointer-events: none;
-      }
-
-      .big-title {
-        font-size: 13vw;
-        line-height: 0.9;
-        color: var(--text-main);
-        opacity: 0;
-        transform: translateY(100px);
-      }
-
-      .hero-subtitle {
-        font-size: 1.2rem;
-        margin-top: 2rem;
-        opacity: 0;
-        display: inline-block;
-        border: 1px solid var(--text-main);
-        padding: 0.5rem 1.5rem;
-        border-radius: 50px;
-        color: var(--text-main);
-      }
-
-      /* --- MASCOT (GHOST) --- */
-      .mascot-container {
-        position: absolute;
-        bottom: 15%;
-        right: 15%;
-        width: 150px;
-        height: 180px;
-        z-index: 4;
-        pointer-events: none;
-        animation: float 4s ease-in-out infinite;
-        opacity: 1; /* Forzamos visibilidad */
-        transition: opacity 0.5s ease;
-      }
-
-      .mascot-body {
-        width: 100%;
-        height: 100%;
-        background: var(--accent);
-        border-radius: 50% 50% 0 0;
-        position: relative;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        box-shadow: 10px 10px 0px rgba(0, 0, 0, 0.1);
-      }
-      .mascot-body::before,
-      .mascot-body::after {
-        content: "";
-        position: absolute;
-        top: 40%;
-        width: 15px;
-        height: 25px;
-        background: #fff;
-        border-radius: 50px;
-        animation: blink 4s infinite;
-      }
-      .mascot-body::before {
-        left: 35%;
-      }
-      .mascot-body::after {
-        right: 35%;
-      }
-      .mascot-legs {
-        position: absolute;
-        bottom: -10px;
-        left: 0;
-        width: 100%;
-        height: 20px;
-        background-size: 30px 30px;
-        background-image: radial-gradient(
-          circle at 15px 0,
-          var(--accent) 15px,
-          transparent 16px
-        );
-        background-repeat: repeat-x;
-      }
-
-      @keyframes float {
-        0%,
-        100% {
-          transform: translateY(0);
-        }
-        50% {
-          transform: translateY(-20px);
-        }
-      }
-      @keyframes blink {
-        0%,
-        96%,
-        100% {
-          height: 25px;
-        }
-        98% {
-          height: 2px;
-        }
-      }
-
-      /* --- UI ELEMENTS --- */
-      #pencil-toggle-btn {
-        position: fixed;
-        bottom: 30px;
-        right: 30px;
-        width: 60px;
-        height: 60px;
-        border-radius: 50%;
-        background: var(--text-main);
-        color: var(--bg-color);
-        border: none;
-        z-index: 101;
-        font-size: 1.5rem;
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-        transition: transform 0.2s, background 0.3s;
-      }
-      #pencil-toggle-btn:hover {
-        transform: scale(1.1);
-      }
-      #pencil-toggle-btn.active {
-        background: var(--accent);
-        color: #fff;
-        transform: rotate(15deg);
-      }
-
-      #exit-playground-btn {
-        position: fixed;
-        bottom: 100px;
-        left: 50%;
-        transform: translateX(-50%) translateY(20px);
-        opacity: 0;
-        pointer-events: none;
-        z-index: 99;
-        transition: all 0.3s ease;
-      }
-      #exit-playground-btn.visible {
-        opacity: 1;
-        pointer-events: auto;
-        transform: translateX(-50%) translateY(0);
-      }
-
-      .tools-panel {
-        position: fixed;
-        bottom: 30px;
-        left: 50%;
-        transform: translateX(-50%);
-        display: flex;
-        gap: 15px;
-        background: var(--panel-bg);
-        padding: 10px 25px;
-        border-radius: 50px;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-        z-index: 100;
-        transition: transform 0.3s cubic-bezier(0.68, -0.55, 0.27, 1.55),
-          opacity 0.3s;
-        border: 1px solid var(--border-color);
-      }
-      .tools-panel.hidden {
-        transform: translateX(-50%) translateY(150px);
-        opacity: 0;
-        pointer-events: none;
-      }
-
-      .color-dot {
-        width: 24px;
-        height: 24px;
-        border-radius: 50%;
-        cursor: none;
-        border: 2px solid transparent;
-        transition: transform 0.2s;
-      }
-      .color-dot:hover {
-        transform: scale(1.2);
-      }
-
-      /* --- SECTIONS SPACING FIX --- */
-      section {
-        position: relative;
-        z-index: 5;
-        pointer-events: none;
-      }
-
-      /* ESPACIADO CORREGIDO: Evita que el texto del hero se solape con about */
-      #about {
-        padding-top: 30vh;
-        padding-bottom: 10vh;
-      }
-
-      .container,
-      .container-fluid {
-        pointer-events: auto;
-      }
-      .section-title {
-        font-size: 4rem;
-        margin-bottom: 3rem;
-        color: var(--text-main);
-      }
-
-      /* Gallery */
-      .swipe-gallery-container {
-        width: 100%;
-        overflow-x: auto;
-        padding-bottom: 3rem;
-        padding-left: 5vw;
-        padding-right: 5vw;
-        -webkit-overflow-scrolling: touch;
-        scrollbar-width: none;
-        pointer-events: auto;
-      }
-      .swipe-gallery-container::-webkit-scrollbar {
-        display: none;
-      }
-      .gallery-track {
-        display: inline-flex;
-        gap: 40px;
-      }
-      .gallery-item {
-        width: 350px;
-        flex-shrink: 0;
-        cursor: none;
-        transition: transform 0.3s ease;
-      }
-      .gallery-item:hover {
-        transform: translateY(-10px);
-      }
-      .gallery-img-wrapper {
-        width: 100%;
-        height: 450px;
-        background: #ddd;
-        border-radius: 12px;
-        overflow: hidden;
-        position: relative;
-        margin-bottom: 1.5rem;
-      }
-      .gallery-img-wrapper img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        transition: transform 0.7s ease;
-      }
-      .gallery-item:hover .gallery-img-wrapper img {
-        transform: scale(1.1);
-      }
-
-      /* --- OVERLAY --- */
-      .project-overlay {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: var(--bg-color);
-        z-index: 2000;
-        overflow-y: auto;
-        transform: translateY(100%);
-        transition: transform 0.6s cubic-bezier(0.77, 0, 0.175, 1);
-        pointer-events: auto;
-        -webkit-overflow-scrolling: touch;
-        overscroll-behavior: contain;
-      }
-      .project-overlay.active {
-        transform: translateY(0);
-      }
-
-      .close-btn {
-        position: fixed;
-        top: 30px;
-        right: 30px;
-        font-size: 2rem;
-        cursor: none;
-        background: var(--panel-bg);
-        border: 1px solid var(--border-color);
-        color: var(--text-main);
-        z-index: 2001;
-        width: 60px;
-        height: 60px;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        transition: transform 0.3s;
-      }
-      .close-btn:hover {
-        transform: rotate(90deg);
-        color: var(--accent);
-      }
-
-      /* --- FOOTER --- */
-      footer {
-        background: var(--accent);
-        color: #fff;
-        padding: 100px 0;
-        text-align: center;
-        z-index: 10;
-        position: relative;
-        pointer-events: auto;
-        transition: background 0.3s;
-      }
-
-      .contact-dropdown-btn {
-        background: rgba(255, 255, 255, 0.1);
-        border: 1px solid rgba(255, 255, 255, 0.3);
-        color: #fff;
-        padding: 1rem 2rem;
-        border-radius: 50px;
-        font-family: var(--font-display);
-        font-size: 1.2rem;
-        cursor: none;
-        transition: all 0.3s;
-        display: inline-flex;
-        align-items: center;
-        gap: 10px;
-      }
-      .contact-dropdown-btn:hover {
-        background: #fff;
-        color: var(--accent);
-      }
-      .contact-dropdown-btn.active i {
-        transform: rotate(180deg);
-      }
-      .contact-form-container {
-        max-height: 0;
-        overflow: hidden;
-        transition: max-height 0.6s ease-in-out, opacity 0.6s;
-        opacity: 0;
-        max-width: 600px;
-        margin: 0 auto;
-      }
-      .contact-form-container.open {
-        max-height: 800px;
-        opacity: 1;
-        margin-top: 2rem;
-      }
-      .form-control-custom {
-        background: transparent;
-        border: none;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.5);
-        color: #fff;
-        padding: 1rem 0;
-        border-radius: 0;
-      }
-      .form-control-custom:focus {
-        background: transparent;
-        color: #fff;
-        border-color: #fff;
-        box-shadow: none;
-      }
-      .form-control-custom::placeholder {
-        color: rgba(255, 255, 255, 0.5);
-        font-style: italic;
-      }
-
-      @media (max-width: 767px) {
-        .navbar {
-          padding: 1rem !important;
-        }
-        .navbar-collapse {
-          background: var(--bg-color);
-          border: 1px solid var(--border-color);
-          padding: 1rem;
-          border-radius: 1rem;
-          margin-top: 10px;
-          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-        }
-        .big-title {
-          font-size: 16vw;
-        }
-        .gallery-item {
-          width: 85vw;
-        }
-        .mascot-container {
-          width: 100px;
-          height: 120px;
-          bottom: 15%;
-          right: 5%;
-          opacity: 0.8;
-        }
-        .tools-panel {
-          width: 90%;
-          justify-content: space-around;
-          padding: 10px;
-        }
-        .section-title {
-          font-size: 2.5rem;
-          margin-left: 1rem;
-        }
-        #pencil-toggle-btn {
-          bottom: 20px;
-          right: 20px;
-          width: 50px;
-          height: 50px;
-          font-size: 1.2rem;
-        }
-        #about {
-          padding-top: 15vh;
-        }
-      }
-      .hover-trigger {
-        cursor: none;
-      }
-    </style>
   </head>
   <body onload="init()">
     <!-- Cursor -->
@@ -608,7 +32,9 @@
     <!-- Navegación -->
     <nav class="navbar fixed-top navbar-expand-md">
       <div class="container-fluid">
-        <a class="navbar-brand hover-trigger fw-bold" href="#hero">TEA.</a>
+        <a class="navbar-brand hover-trigger fw-bold" href="#hero">
+          MARÍA IGNACIA DAFONTE.</a
+        >
         <button
           class="navbar-toggler hover-trigger"
           type="button"
@@ -627,24 +53,41 @@
               <a
                 class="nav-link hover-trigger"
                 href="#"
+                data-lang="playground-link"
                 onclick="activatePlayground(); return false;"
                 >PLAYGROUND</a
               >
             </li>
             <li class="nav-item">
-              <a class="nav-link hover-trigger" href="#about">ABOUT</a>
+              <a
+                class="nav-link hover-trigger"
+                href="#about"
+                data-lang="nav-about"
+                >ABOUT</a
+              >
             </li>
             <li class="nav-item">
-              <a class="nav-link hover-trigger" href="#archive">ARCHIVO</a>
+              <a
+                class="nav-link hover-trigger"
+                href="#archive"
+                data-lang="archive"
+                >ARCHIVO</a
+              >
             </li>
             <li class="nav-item">
-              <a class="nav-link hover-trigger" href="#contact">CONTACTO</a>
+              <a
+                class="nav-link hover-trigger"
+                href="#contact"
+                data-lang="contact"
+                >CONTACTO</a
+              >
             </li>
             <li
               class="nav-item ms-md-4 d-flex align-items-center gap-3 mt-3 mt-md-0"
             >
               <button
                 class="btn btn-sm hover-trigger navbar-btn"
+                data-lang="dark-mode-toggle"
                 onclick="toggleDarkMode()"
                 title="Modo Oscuro"
               >
@@ -658,7 +101,6 @@
 
     <!-- Canvas Layer -->
     <canvas id="drawing-canvas"></canvas>
-
     <!-- Botón Flotante para Dibujar -->
     <button
       id="pencil-toggle-btn"
@@ -673,6 +115,7 @@
     <button
       id="exit-playground-btn"
       class="btn btn-sm btn-dark rounded-pill px-4 py-2 hover-trigger shadow"
+      data-lang="salir-playground"
       onclick="exitPlayground()"
     >
       <i class="fa-solid fa-arrow-left me-2"></i> SALIR
@@ -741,7 +184,7 @@
               CREATIVIDAD<br />SIN LÍMITES
             </h2>
           </div>
-          <div class="col-lg-6">
+          <div class="col-lg-4 offset-lg-1">
             <p class="lead">
               Hola, soy Tea. Diseñadora visual e ilustradora. Este sitio es un
               lienzo vivo; no solo para mostrar mi trabajo, sino para que
@@ -906,275 +349,11 @@
         </p>
       </div>
     </footer>
-
     <!-- Scripts -->
+    <script src="assets/js/main.js" defer></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-
-    <script>
-      // --- DATA ---
-      const projects = [
-        {
-          id: 1,
-          title: "LUZ DE TARDE",
-          year: "2024",
-          category: "Arte Tradicional",
-          img: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2564&auto=format&fit=crop",
-          desc: "Un estudio contemplativo.",
-          client: "Colección Privada",
-          services: "Óleo",
-        },
-        {
-          id: 2,
-          title: "MEMORIA AZUL",
-          year: "2023",
-          category: "Ilustración Digital",
-          img: "https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?q=80&w=2845&auto=format&fit=crop",
-          desc: "Exploración cromática.",
-          client: "Personal",
-          services: "Procreate",
-        },
-        {
-          id: 3,
-          title: "BOTÁNICA",
-          year: "2023",
-          category: "Diseño de Patrones",
-          img: "https://images.unsplash.com/photo-1549490349-8643362247b5?q=80&w=2787&auto=format&fit=crop",
-          desc: "Patrones tropicales.",
-          client: "Moda S.A.",
-          services: "Vector",
-        },
-        {
-          id: 4,
-          title: "RETRATO LÍQUIDO",
-          year: "2022",
-          category: "Experimental",
-          img: "https://images.unsplash.com/photo-1507643179173-617d67456fd8?q=80&w=2669&auto=format&fit=crop",
-          desc: "Fusión fotografía/digital.",
-          client: "Revista Arte",
-          services: "Edición",
-        },
-      ];
-
-      // --- SETUP ---
-      gsap.registerPlugin(ScrollTrigger);
-      let lenis;
-
-      function init() {
-        // Smooth Scroll Optimizado
-        lenis = new Lenis({
-          duration: 1.0,
-          easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-          smoothTouch: true,
-        });
-        function raf(time) {
-          lenis.raf(time);
-          requestAnimationFrame(raf);
-        }
-        requestAnimationFrame(raf);
-
-        // Intro Animation
-        const tl = gsap.timeline();
-        tl.to(".big-title", {
-          opacity: 1,
-          y: 0,
-          duration: 1.5,
-          ease: "power4.out",
-          delay: 0.2,
-        }).to(
-          ".hero-subtitle",
-          { opacity: 1, y: 0, duration: 1, ease: "power3.out" },
-          "-=1"
-        );
-
-        renderArchive();
-        resizeCanvas();
-        window.addEventListener("resize", resizeCanvas);
-        setupHoverEffects();
-      }
-
-      function renderArchive() {
-        const container = document.getElementById("archive-gallery-track");
-        container.innerHTML = projects
-          .map(
-            (p) => `
-                <div class="gallery-item hover-trigger" onclick="openProject(${p.id})">
-                    <div class="gallery-img-wrapper">
-                        <img src="${p.img}" alt="${p.title}">
-                    </div>
-                    <div class="mt-3 d-flex justify-content-between align-items-center">
-                        <h4 class="m-0" style="color: var(--text-main); font-size: 1.2rem;">${p.title}</h4>
-                        <span class="badge rounded-pill text-bg-secondary border">${p.year}</span>
-                    </div>
-                </div>
-            `
-          )
-          .join("");
-      }
-
-      // --- DRAWING LOGIC & PLAYGROUND ---
-      function toggleDrawingMode() {
-        document.body.classList.toggle("drawing-enabled");
-        const btn = document.getElementById("pencil-toggle-btn");
-        btn.classList.toggle("active");
-
-        // Si activamos dibujo, paramos el scroll
-        if (document.body.classList.contains("drawing-enabled")) {
-          lenis.stop();
-          document.getElementById("cursor").classList.add("drawing");
-          // Aseguramos que herramientas estén visibles
-          document.getElementById("tools-panel").classList.remove("hidden");
-        } else {
-          lenis.start();
-          document.getElementById("cursor").classList.remove("drawing");
-        }
-      }
-
-      function activatePlayground() {
-        lenis.scrollTo(0, { immediate: true });
-        clearCanvas();
-
-        // Forzar activación de herramientas y lápiz
-        document.getElementById("tools-panel").classList.remove("hidden");
-        if (!document.body.classList.contains("drawing-enabled"))
-          toggleDrawingMode();
-
-        document
-          .getElementById("hero-text")
-          .classList.add("hero-content-hidden");
-        document.getElementById("mascot").classList.add("hero-content-hidden");
-        document.getElementById("exit-playground-btn").classList.add("visible");
-        document.getElementById("pencil-toggle-btn").style.display = "none";
-      }
-
-      function exitPlayground() {
-        if (document.body.classList.contains("drawing-enabled"))
-          toggleDrawingMode();
-
-        document
-          .getElementById("hero-text")
-          .classList.remove("hero-content-hidden");
-        document
-          .getElementById("mascot")
-          .classList.remove("hero-content-hidden");
-        document
-          .getElementById("exit-playground-btn")
-          .classList.remove("visible");
-        document.getElementById("pencil-toggle-btn").style.display = "block";
-      }
-
-      // --- DRAWING ENGINE ---
-      const canvas = document.getElementById("drawing-canvas");
-      const ctx = canvas.getContext("2d");
-      let isDrawing = false;
-      let lastX = 0,
-        lastY = 0;
-      let strokeColor = "#1A1A1A";
-
-      function resizeCanvas() {
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-        ctx.lineCap = "round";
-        ctx.lineJoin = "round";
-        ctx.lineWidth = 3;
-        ctx.strokeStyle = strokeColor;
-      }
-
-      function draw(e) {
-        if (!isDrawing) return;
-        const x = e.type.includes("touch") ? e.touches[0].clientX : e.clientX;
-        const y = e.type.includes("touch") ? e.touches[0].clientY : e.clientY;
-        ctx.beginPath();
-        ctx.moveTo(lastX, lastY);
-        ctx.lineTo(x, y);
-        ctx.stroke();
-        [lastX, lastY] = [x, y];
-      }
-
-      canvas.addEventListener("mousedown", (e) => {
-        isDrawing = true;
-        [lastX, lastY] = [e.clientX, e.clientY];
-      });
-      window.addEventListener("mouseup", () => (isDrawing = false));
-      canvas.addEventListener("mousemove", draw);
-
-      // Touch events
-      canvas.addEventListener(
-        "touchstart",
-        (e) => {
-          isDrawing = true;
-          const t = e.touches[0];
-          [lastX, lastY] = [t.clientX, t.clientY];
-        },
-        { passive: false }
-      );
-      canvas.addEventListener(
-        "touchmove",
-        (e) => {
-          if (isDrawing) e.preventDefault();
-          draw(e);
-        },
-        { passive: false }
-      );
-      window.addEventListener("touchend", () => (isDrawing = false));
-
-      function setColor(c) {
-        strokeColor = c;
-        ctx.strokeStyle = c;
-      }
-      function clearCanvas() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-      }
-
-      // --- UI UTILS ---
-      function toggleTools() {
-        document.getElementById("tools-panel").classList.toggle("hidden");
-      }
-      function toggleContactForm(btn) {
-        btn.classList.toggle("active");
-        document
-          .querySelector(".contact-form-container")
-          .classList.toggle("open");
-      }
-      function toggleDarkMode() {
-        document.body.classList.toggle("dark-mode");
-      }
-      function openProject(id) {
-        const p = projects.find((item) => item.id === id);
-        if (!p) return;
-        document.getElementById("detail-title").innerText = p.title;
-        document.getElementById("detail-img").src = p.img;
-        // ... resto de datos
-        document.getElementById("project-overlay").classList.add("active");
-        lenis.stop();
-        document.body.style.overflow = "hidden";
-      }
-      function closeProject() {
-        document.getElementById("project-overlay").classList.remove("active");
-        lenis.start();
-        document.body.style.overflow = "";
-      }
-
-      // --- CURSOR ---
-      const cursor = document.getElementById("cursor");
-      window.addEventListener("mousemove", (e) => {
-        cursor.style.left = e.clientX + "px";
-        cursor.style.top = e.clientY + "px";
-      });
-      function setupHoverEffects() {
-        document
-          .querySelectorAll(".hover-trigger, a, button, .gallery-item")
-          .forEach((el) => {
-            el.addEventListener("mouseenter", () =>
-              cursor.classList.add("hovered")
-            );
-            el.addEventListener("mouseleave", () =>
-              cursor.classList.remove("hovered")
-            );
-          });
-      }
-    </script>
   </body>
 </html>
