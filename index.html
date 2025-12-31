@@ -280,6 +280,7 @@
         </div>
       </div>
     </div>
+
     <!-- WIDGET DE MÚSICA -->
     <div id="music-widget" class="hover-trigger">
       <!-- Reproductor CD -->
@@ -310,7 +311,42 @@
           type="audio/mp3"
         />
       </audio>
+      <div>
+        <div id="lang-widget">
+          <!-- Botón Principal (Primero) -->
+          <button
+            id="lang-toggle-btn"
+            class="hover-trigger"
+            onclick="toggleLangMenu()"
+          >
+            <i class="fa-solid fa-globe"></i>
+          </button>
+
+          <!-- Menú Oculto (Segundo, sale a la derecha) -->
+          <div id="lang-menu">
+            <button
+              class="lang-option hover-trigger selected"
+              onclick="setLanguage404('es')"
+            >
+              ES
+            </button>
+            <button
+              class="lang-option hover-trigger"
+              onclick="setLanguage404('en')"
+            >
+              EN
+            </button>
+            <button
+              class="lang-option hover-trigger"
+              onclick="setLanguage404('nl')"
+            >
+              NL
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
+
     <!-- FOOTER & CONTACT -->
     <footer id="contact">
       <div class="container">
@@ -385,5 +421,50 @@
     <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="assets/js/main.js" defer></script>
+    <script>
+      // --- 1. LÓGICA DE IDIOMA ---
+      const translations404 = {
+        es: {
+          "error-msg": "Te has salido del lienzo",
+          "btn-home":
+            "<i class='fa-solid fa-arrow-left me-2'></i> VOLVER AL ESTUDIO",
+        },
+        en: {
+          "error-msg": "You've gone off the canvas",
+          "btn-home":
+            "<i class='fa-solid fa-arrow-left me-2'></i> BACK TO STUDIO",
+        },
+        nl: {
+          "error-msg": "Je bent buiten het canvas getreden",
+          "btn-home":
+            "<i class='fa-solid fa-arrow-left me-2'></i> TERUG NAAR STUDIO",
+        },
+      };
+
+      let currentLang404 = "es";
+
+      function toggleLangMenu() {
+        document.getElementById("lang-widget").classList.toggle("active");
+      }
+
+      function setLanguage404(lang) {
+        currentLang404 = lang;
+
+        document.querySelectorAll(".lang-option").forEach((btn) => {
+          btn.classList.remove("selected");
+          if (btn.innerText.toLowerCase() === lang)
+            btn.classList.add("selected");
+        });
+
+        document.querySelectorAll("[data-lang]").forEach((el) => {
+          const key = el.getAttribute("data-lang");
+          if (translations404[currentLang404][key]) {
+            el.innerHTML = translations404[currentLang404][key];
+          }
+        });
+
+        toggleLangMenu();
+      }
+    </script>
   </body>
 </html>
