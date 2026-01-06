@@ -397,6 +397,7 @@ section {
   padding-left: 5vw;
   padding-right: 5vw;
   -webkit-overflow-scrolling: touch;
+  touch-action: pan-y;
   scrollbar-width: none;
   pointer-events: auto;
 }
@@ -595,7 +596,7 @@ footer {
 /* --- REPRODUCTOR DE MÚSICA (CD) --- */
 #music-widget {
   position: fixed;
-  bottom: 30px; /* Un poco más arriba del botón de idioma */
+  bottom: 90px; /* Un poco más arriba del botón de idioma */
   left: 30px;
   z-index: 1000;
   display: flex;

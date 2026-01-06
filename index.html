@@ -101,15 +101,7 @@
 
     <!-- Canvas Layer -->
     <canvas id="drawing-canvas"></canvas>
-    <!-- Botón Flotante para Dibujar -->
-    <button
-      id="pencil-toggle-btn"
-      class="hover-trigger"
-      onclick="toggleDrawingMode()"
-      title="Activar/Desactivar Dibujo"
-    >
-      <i class="fa-solid fa-pen"></i>
-    </button>
+    <!-- Botón Flotante para Dibujar (eliminado) -->
 
     <!-- Botón Salir Playground -->
     <button
@@ -122,7 +114,7 @@
     </button>
 
     <!-- UI: Tools -->
-    <div class="tools-panel" id="tools-panel">
+    <div class="tools-panel hidden" id="tools-panel">
       <div
         class="color-dot hover-trigger"
         style="background: #1a1a1a; border: 1px solid #ddd"
@@ -156,8 +148,10 @@
     <!-- HERO -->
     <section id="hero">
       <div class="hero-text-container" id="hero-text">
-        <h1 class="big-title">HOLA,<br />SOY TEA</h1>
-        <div class="hero-subtitle">Portfolio & Visual Playground</div>
+        <h1 class="big-title" data-lang="big-title">HOLA,<br />SOY TEA</h1>
+        <div class="hero-subtitle" data-lang="hero-subtitle">
+          Portfolio & Visual Playground
+        </div>
       </div>
 
       <!-- Personaje Animado -->
@@ -175,6 +169,7 @@
           <div class="col-lg-6 mb-4">
             <h2
               class="display-4"
+              data-lang="about-h2"
               style="
                 font-family: var(--font-display);
                 font-weight: 800;
@@ -185,7 +180,7 @@
             </h2>
           </div>
           <div class="col-lg-4 offset-lg-1">
-            <p class="lead">
+            <p class="lead" data-lang="about-body">
               Hola, soy Tea. Diseñadora visual e ilustradora. Este sitio es un
               lienzo vivo; no solo para mostrar mi trabajo, sino para que
               interactúes con él.
@@ -201,7 +196,7 @@
         <div class="container">
           <div class="row mb-5">
             <div class="col-12">
-              <h2 class="section-title">
+              <h2 class="section-title" data-lang="archive-title">
                 ARCHIVO<span style="color: var(--accent)">.</span>
               </h2>
             </div>
@@ -231,7 +226,7 @@
             >
             <h1
               id="detail-title"
-              class="display-2"
+              class="display-2 data-lang mb-3"
               style="
                 font-family: var(--font-display);
                 font-weight: 800;
@@ -243,6 +238,7 @@
             <p
               id="detail-category"
               class="text-muted text-uppercase letter-spacing-2"
+              data-lang="category"
             >
               Categoría
             </p>
@@ -259,19 +255,30 @@
           <div class="col-lg-8 mx-auto pb-5">
             <h3
               class="mb-4"
+              data-lang="about-project"
               style="font-family: var(--font-display); color: var(--text-main)"
             >
               SOBRE EL PROYECTO
             </h3>
-            <p id="detail-desc" class="lead mb-5">Descripción...</p>
+            <p id="detail-desc" class="lead mb-5" data-lang="description">
+              Descripción...
+            </p>
             <div class="row g-4">
               <div class="col-md-6">
-                <h5 style="color: var(--text-main)">CLIENTE</h5>
+                <h5 style="color: var(--text-main)" data-lang="client">
+                  CLIENTE
+                </h5>
                 <p id="detail-client" class="text-muted">Nombre Cliente</p>
               </div>
               <div class="col-md-6">
-                <h5 style="color: var(--text-main)">SERVICIOS</h5>
-                <p id="detail-services" class="text-muted">
+                <h5 style="color: var(--text-main)" data-lang="services">
+                  SERVICIOS
+                </h5>
+                <p
+                  id="detail-services"
+                  class="text-muted"
+                  data-lang="detail-services"
+                >
                   Ilustración, Dirección de Arte
                 </p>
               </div>
@@ -326,19 +333,19 @@
           <div id="lang-menu">
             <button
               class="lang-option hover-trigger selected"
-              onclick="setLanguage404('es')"
+              onclick="setLanguage('es')"
             >
               ES
             </button>
             <button
               class="lang-option hover-trigger"
-              onclick="setLanguage404('en')"
+              onclick="setLanguage('en')"
             >
               EN
             </button>
             <button
               class="lang-option hover-trigger"
-              onclick="setLanguage404('nl')"
+              onclick="setLanguage('nl')"
             >
               NL
             </button>
@@ -352,12 +359,14 @@
       <div class="container">
         <h2
           class="display-3 mb-4"
+          data-lang="lets-talk"
           style="font-family: var(--font-display); font-weight: 800"
         >
           HABLEMOS
         </h2>
         <button
           class="contact-dropdown-btn hover-trigger on-dark-trigger"
+          data-lang="start-project"
           onclick="toggleContactForm(this)"
         >
           <span>INICIAR PROYECTO</span>
@@ -366,7 +375,9 @@
         <div class="contact-form-container text-start">
           <form onsubmit="event.preventDefault(); alert('Mensaje enviado!');">
             <div class="mb-4">
-              <label class="small text-white-50 mb-2">NOMBRE</label>
+              <label class="small text-white-50 mb-2" data-lang="name"
+                >NOMBRE</label
+              >
               <input
                 type="text"
                 class="form-control form-control-custom hover-trigger on-dark-trigger"
@@ -375,7 +386,9 @@
               />
             </div>
             <div class="mb-4">
-              <label class="small text-white-50 mb-2">EMAIL</label>
+              <label class="small text-white-50 mb-2" data-lang="email"
+                >EMAIL</label
+              >
               <input
                 type="email"
                 class="form-control form-control-custom hover-trigger on-dark-trigger"
@@ -384,9 +397,12 @@
               />
             </div>
             <div class="mb-4">
-              <label class="small text-white-50 mb-2">MENSAJE</label>
+              <label class="small text-white-50 mb-2" data-lang="message"
+                >MENSAJE</label
+              >
               <textarea
                 class="form-control form-control-custom hover-trigger on-dark-trigger"
+                data-lang="idea-info"
                 rows="3"
                 placeholder="Cuéntame sobre tu idea..."
                 required
@@ -396,6 +412,7 @@
               <button
                 type="submit"
                 class="btn btn-light rounded-pill px-5 py-3 hover-trigger on-dark-trigger fw-bold"
+                data-lang="send-message"
               >
                 ENVIAR
               </button>
@@ -410,7 +427,7 @@
             ><i class="fa-brands fa-behance fa-xl"></i
           ></a>
         </div>
-        <p class="mt-4 text-white-50 small">
+        <p class="mt-4 text-white-50 small" data-lang="copyright-rights">
           &copy; 2025 TEA. Todos los derechos reservados.
         </p>
       </div>
@@ -423,6 +440,101 @@
     <script src="assets/js/main.js" defer></script>
     <script>
       // --- 1. LÓGICA DE IDIOMA ---
+      const translations = {
+        es: {
+          "playground-link": "PLAYGROUND",
+          "nav-about": "ABOUT",
+          archive: "ARCHIVO",
+          contact: "CONTACTO",
+          "dark-mode-toggle":
+            "<i class='fa-solid fa-circle-half-stroke fa-lg'></i>",
+          "big-title": "HOLA,<br />SOY TEA",
+          "hero-subtitle": "Portfolio & Visual Playground",
+          "about-h2": "CREATIVIDAD<br />SIN LÍMITES",
+          "about-body":
+            "Hola, soy Tea. Diseñadora visual e ilustradora. Este sitio es un lienzo vivo; no solo para mostrar mi trabajo, sino para que interactúes con él.",
+          "archive-title": "ARCHIVO<span style='color: var(--accent)'>.</span>",
+          "salir-playground":
+            "<i class='fa-solid fa-arrow-left me-2'></i> SALIR",
+          category: "Categoría",
+          "about-project": "SOBRE EL PROYECTO",
+          description: "Descripción...",
+          client: "CLIENTE",
+          services: "SERVICIOS",
+          "detail-services": "Ilustración, Dirección de Arte",
+          "lets-talk": "HABLEMOS",
+          "start-project":
+            "<span>INICIAR PROYECTO</span><i class='fa-solid fa-chevron-down'></i>",
+          name: "NOMBRE",
+          email: "EMAIL",
+          message: "MENSAJE",
+          "idea-info": "Cuéntame sobre tu idea...",
+          "send-message": "ENVIAR",
+          "copyright-rights": "&copy; 2025 TEA. Todos los derechos reservados.",
+        },
+        en: {
+          "playground-link": "PLAYGROUND",
+          "nav-about": "ABOUT",
+          archive: "ARCHIVE",
+          contact: "CONTACT",
+          "dark-mode-toggle":
+            "<i class='fa-solid fa-circle-half-stroke fa-lg'></i>",
+          "big-title": "HELLO,<br />I'M TEA",
+          "hero-subtitle": "Portfolio & Visual Playground",
+          "about-h2": "CREATIVITY<br />WITHOUT LIMITS",
+          "about-body":
+            "Hi, I'm Tea. Visual designer and illustrator. This site is a living canvas; not only to showcase my work, but for you to interact with it.",
+          "archive-title": "ARCHIVE<span style='color: var(--accent)'>.</span>",
+          "salir-playground":
+            "<i class='fa-solid fa-arrow-left me-2'></i> EXIT",
+          category: "Category",
+          "about-project": "ABOUT THE PROJECT",
+          description: "Description...",
+          client: "CLIENT",
+          services: "SERVICES",
+          "detail-services": "Illustration, Art Direction",
+          "lets-talk": "LET'S TALK",
+          "start-project":
+            "<span>START PROJECT</span><i class='fa-solid fa-chevron-down'></i>",
+          name: "NAME",
+          email: "EMAIL",
+          message: "MESSAGE",
+          "idea-info": "Tell me about your idea...",
+          "send-message": "SEND",
+          "copyright-rights": "&copy; 2025 TEA. All rights reserved.",
+        },
+        nl: {
+          "playground-link": "PLAYGROUND",
+          "nav-about": "OVER MIJ",
+          archive: "ARCHIEF",
+          contact: "CONTACT",
+          "dark-mode-toggle":
+            "<i class='fa-solid fa-circle-half-stroke fa-lg'></i>",
+          "big-title": "HALLO,<br />IK BEN TEA",
+          "hero-subtitle": "Portfolio & Visuele Speelplaats",
+          "about-h2": "CREATIVITEIT<br />ZONDER LIMITES",
+          "about-body":
+            "Hoi, ik ben Tea. Visueel ontwerper en illustrator. Deze site is een levend canvas; niet alleen om mijn werk te laten zien, maar ook om ermee te interageren.",
+          "archive-title": "ARCHIEF<span style='color: var(--accent)'>.</span>",
+          "salir-playground":
+            "<i class='fa-solid fa-arrow-left me-2'></i> TERUG",
+          category: "Categorie",
+          "about-project": "OVER HET PROJECT",
+          description: "Beschrijving...",
+          client: "KLANT",
+          services: "DIENSTEN",
+          "detail-services": "Illustratie, Art Direction",
+          "lets-talk": "LATEN WE PRATEN",
+          "start-project":
+            "<span>START PROJECT</span><i class='fa-solid fa-chevron-down'></i>",
+          name: "NAAM",
+          email: "E-MAIL",
+          message: "BERICHT",
+          "idea-info": "Vertel me over je idee...",
+          "send-message": "VERZENDEN",
+          "copyright-rights": "&copy; 2025 TEA. Alle rechten voorbehouden.",
+        },
+      };
       const translations404 = {
         es: {
           "error-msg": "Te has salido del lienzo",
@@ -441,14 +553,15 @@
         },
       };
 
-      let currentLang404 = "es";
+      let currentLang = "es";
 
       function toggleLangMenu() {
         document.getElementById("lang-widget").classList.toggle("active");
       }
 
-      function setLanguage404(lang) {
-        currentLang404 = lang;
+      // Apply translations for the main index (uses `translations`)
+      function setLanguage(lang) {
+        currentLang = lang;
 
         document.querySelectorAll(".lang-option").forEach((btn) => {
           btn.classList.remove("selected");
@@ -458,13 +571,21 @@
 
         document.querySelectorAll("[data-lang]").forEach((el) => {
           const key = el.getAttribute("data-lang");
-          if (translations404[currentLang404][key]) {
-            el.innerHTML = translations404[currentLang404][key];
+          if (translations[currentLang] && translations[currentLang][key]) {
+            el.innerHTML = translations[currentLang][key];
           }
         });
 
+        // Refresh gallery and project detail if those functions exist
+        if (typeof window.renderArchive === "function") window.renderArchive();
+        if (typeof window.updateOpenProjectContent === "function")
+          window.updateOpenProjectContent();
+
         toggleLangMenu();
       }
+
+      // Initialize page language on load
+      setLanguage(currentLang);
     </script>
   </body>
 </html>
