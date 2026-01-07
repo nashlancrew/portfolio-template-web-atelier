@@ -76,6 +76,7 @@ const projects = [
 gsap.registerPlugin(ScrollTrigger);
 let lenis;
 let isPlaygroundActive = false;
+let hasInitialized = false;
 
 function init() {
   // Smooth Scroll Optimizado
@@ -128,6 +129,12 @@ function init() {
     });
   });
 }
+
+window.addEventListener("load", () => {
+  if (hasInitialized) return;
+  hasInitialized = true;
+  init();
+});
 
 function scheduleStickerRelayout() {
   let frames = 0;
