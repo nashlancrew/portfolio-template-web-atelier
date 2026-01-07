@@ -98,16 +98,26 @@ function init() {
     duration: 1.5,
     ease: "power4.out",
     delay: 0.2,
-  }).to(
-    ".hero-subtitle",
-    { opacity: 1, y: 0, duration: 1, ease: "power3.out" },
-    "-=1"
-  );
-
+  })
+    .to(
+      ".hero-subtitle",
+      { opacity: 1, y: 0, duration: 1, ease: "power3.out" },
+      "-=1"
+    )
+    .eventCallback("onComplete", positionStickerOnTeaA);
+  // --- AQUÍ AÑADES LA LLAMADA NUEVA ---
+  initStickerAnimation();
+  // position sticker relative to the TEA 'A' when available
+  positionStickerOnTeaA();
+  scheduleStickerRelayout();
+  // ------------------------------------
   renderArchive();
   resizeCanvas();
   window.addEventListener("resize", resizeCanvas);
   setupHoverEffects();
+  if (document.fonts && document.fonts.ready) {
+    document.fonts.ready.then(positionStickerOnTeaA);
+  }
   // If user clicks a navbar link while inside playground (but not the PLAYGROUND button), exit playground
   document.querySelectorAll(".navbar .nav-link").forEach((link) => {
     link.addEventListener("click", () => {
@@ -119,6 +129,66 @@ function init() {
   });
 }
 
+function scheduleStickerRelayout() {
+  let frames = 0;
+  const tick = () => {
+    positionStickerOnTeaA();
+    frames += 1;
+    if (frames < 24) requestAnimationFrame(tick);
+  };
+  requestAnimationFrame(tick);
+}
+window.scheduleStickerRelayout = scheduleStickerRelayout;
+
+// Position the sticker container so the base image overlays the 'A' in TEA
+function positionStickerOnTeaA() {
+  const container = document.querySelector(".sticker-container");
+  const anchor = document.getElementById("tea-A");
+  if (!container || !anchor) return;
+
+  const baseEl = container.querySelector(".base");
+  const baseRect = (baseEl || container).getBoundingClientRect();
+  if (!baseRect.width || !baseRect.height) {
+    if (baseEl) {
+      baseEl.addEventListener("load", positionStickerOnTeaA, { once: true });
+    }
+    return;
+  }
+
+  const anchorRect = anchor.getBoundingClientRect();
+  const styles = getComputedStyle(container);
+  const offsetX =
+    parseFloat(styles.getPropertyValue("--sticker-offset-x")) || 0;
+  const offsetY =
+    parseFloat(styles.getPropertyValue("--sticker-offset-y")) || 0;
+  const left = Math.round(anchorRect.right + offsetX);
+  const top = Math.round(anchorRect.bottom + offsetY);
+
+  container.style.setProperty("position", "fixed", "important");
+  container.style.setProperty("left", left + "px", "important");
+  container.style.setProperty("top", top + "px", "important");
+  container.style.setProperty("right", "auto", "important");
+  container.style.setProperty("bottom", "auto", "important");
+
+  if (baseEl) baseEl.style.setProperty("transform", "none", "important");
+}
+window.positionStickerOnTeaA = positionStickerOnTeaA;
+
+// Reposition on resize/scroll to keep alignment
+window.addEventListener("resize", () => {
+  // slight debounce
+  clearTimeout(window.__stickerResizeTimeout);
+  window.__stickerResizeTimeout = setTimeout(positionStickerOnTeaA, 80);
+});
+window.addEventListener(
+  "scroll",
+  () => {
+    // reposition on scroll
+    positionStickerOnTeaA();
+  },
+  { passive: true }
+);
+
 function renderArchive() {
   const container = document.getElementById("archive-gallery-track");
   const lang = window.currentLang || "es";
@@ -127,7 +197,7 @@ function renderArchive() {
       const title =
         typeof p.title === "object" ? p.title[lang] || p.title.es : p.title;
       return `
-        <div class="gallery-item hover-trigger" onclick="openProject(${p.id})">
+        <div class="gallery-item hover-trigger" data-project-id="${p.id}">
           <div class="gallery-img-wrapper">
             <img src="${p.img}" alt="${title}">
           </div>
@@ -154,13 +224,18 @@ function setupGalleryScroll() {
   outer.__galleryScrollInit = true;
 
   let isDown = false;
+  let isDragging = false;
   let startX;
+  let startY;
   let scrollLeft;
+  const dragThreshold = 6;
 
   outer.addEventListener("pointerdown", (e) => {
     isDown = true;
+    isDragging = false;
     outer.setPointerCapture(e.pointerId);
     startX = e.clientX;
+    startY = e.clientY;
     scrollLeft = outer.scrollLeft;
     outer.classList.add("dragging");
   });
@@ -168,18 +243,38 @@ function setupGalleryScroll() {
   outer.addEventListener("pointermove", (e) => {
     if (!isDown) return;
     const x = e.clientX;
+    const y = e.clientY;
     const walk = startX - x;
-    outer.scrollLeft = scrollLeft + walk;
+    const travelY = startY - y;
+    if (
+      !isDragging &&
+      Math.abs(walk) > dragThreshold &&
+      Math.abs(walk) > Math.abs(travelY)
+    ) {
+      isDragging = true;
+    }
+    if (isDragging) outer.scrollLeft = scrollLeft + walk;
   });
 
   outer.addEventListener("pointerup", (e) => {
     isDown = false;
     outer.releasePointerCapture && outer.releasePointerCapture(e.pointerId);
     outer.classList.remove("dragging");
+    if (!isDragging) {
+      const target = document.elementFromPoint(e.clientX, e.clientY);
+      const item =
+        target && target.closest ? target.closest(".gallery-item") : null;
+      if (item) {
+        const id = Number(item.dataset.projectId);
+        if (!Number.isNaN(id)) openProject(id);
+      }
+    }
+    isDragging = false;
   });
 
   outer.addEventListener("pointercancel", () => {
     isDown = false;
+    isDragging = false;
     outer.classList.remove("dragging");
   });
 
@@ -235,7 +330,8 @@ function activatePlayground() {
   if (!document.body.classList.contains("drawing-enabled")) toggleDrawingMode();
 
   document.getElementById("hero-text").classList.add("hero-content-hidden");
-  document.getElementById("mascot").classList.add("hero-content-hidden");
+  const sticker = document.querySelector(".sticker-container");
+  if (sticker) sticker.classList.add("hero-content-hidden");
   document.getElementById("exit-playground-btn").classList.add("visible");
   document.getElementById("pencil-toggle-btn").style.display = "none";
 }
@@ -256,7 +352,8 @@ function exitPlayground() {
   }
 
   document.getElementById("hero-text").classList.remove("hero-content-hidden");
-  document.getElementById("mascot").classList.remove("hero-content-hidden");
+  const sticker = document.querySelector(".sticker-container");
+  if (sticker) sticker.classList.remove("hero-content-hidden");
   document.getElementById("exit-playground-btn").classList.remove("visible");
   document.getElementById("pencil-toggle-btn").style.display = "block";
 }
@@ -431,4 +528,84 @@ function toggleMusic() {
     playIcon.style.display = "block";
     pauseIcon.style.display = "none";
   }
+}
+// --- MASCOT / STICKER ANIMATION ---
+function initStickerAnimation() {
+  // 1. Verificamos que el elemento exista para evitar errores
+  const container = document.querySelector(".sticker-container");
+  if (!container) return;
+  // Preload images inside the sticker container before starting animation
+  const imgs = Array.from(container.querySelectorAll("img")).map((i) =>
+    i.getAttribute("src")
+  );
+
+  const preload = imgs.map(
+    (src) =>
+      new Promise((resolve) => {
+        const img = new Image();
+        img.onload = () => resolve(src);
+        img.onerror = () => {
+          console.warn("Failed to preload", src);
+          resolve(src);
+        };
+        img.src = src;
+      })
+  );
+
+  Promise.all(preload).then(() => {
+    console.log("sticker: preload complete", imgs);
+
+    // Force inline stacking to avoid CSS stacking-context issues
+    try {
+      const baseEl = container.querySelector(".base");
+      const openEl = container.querySelector(".eyes-open");
+      const winkEl = container.querySelector(".eyes-wink");
+      if (baseEl) baseEl.style.zIndex = "1";
+      if (openEl) {
+        openEl.style.zIndex = "10000";
+        openEl.style.opacity = "1";
+      }
+      if (winkEl) {
+        winkEl.style.zIndex = "10001";
+        winkEl.style.opacity = "0";
+      }
+    } catch (e) {
+      console.warn("sticker: inline style guard failed", e);
+    }
+
+    // 2. Animación de flotación (Levitación suave)
+    gsap.to(".sticker-container", {
+      y: 15, // Mueve 15px hacia arriba
+      rotation: 2, // Rota ligeramente
+      duration: 2.5,
+      ease: "sine.inOut", // Movimiento muy fluido tipo ola
+      yoyo: true, // Va y vuelve
+      repeat: -1, // Infinito
+    });
+
+    // 3. Animación de parpadeo (Intercambio de imágenes)
+    const eyesOpen = document.querySelectorAll(".eyes-open");
+    const eyesWink = document.querySelectorAll(".eyes-wink");
+
+    // Si no encuentra las capas de ojos, sale
+    if (eyesOpen.length === 0 || eyesWink.length === 0) return;
+    // Start with eyes open visible
+    // AJUSTE FINO: Mueve los ojos independientemente de la cara
+    // x: negativo es izquierda, positivo derecha
+    // y: negativo es arriba, positivo abajo
+    gsap.set(eyesOpen, { opacity: 1 });
+    gsap.set(eyesWink, { opacity: 0 });
+    const tlGuiño = gsap.timeline({ repeat: -1 });
+
+    // Blink sequence: wait ~4s, close (swap to wink), hold 0.12s, open
+    tlGuiño
+      .set(eyesOpen, { opacity: 1 })
+      .set(eyesWink, { opacity: 0 })
+      .to({}, { duration: 4 })
+      .set(eyesOpen, { opacity: 0 })
+      .set(eyesWink, { opacity: 1 })
+      .to({}, { duration: 0.12 })
+      .set(eyesOpen, { opacity: 1 })
+      .set(eyesWink, { opacity: 0 });
+  });
 }

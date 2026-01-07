@@ -203,6 +203,10 @@ body.drawing-enabled {
   opacity: 0;
   transform: translateY(100px);
 }
+#tea-A {
+  display: inline-block;
+  position: relative;
+}
 
 .hero-subtitle {
   font-size: 1.2rem;
@@ -229,6 +233,26 @@ body.drawing-enabled {
   transition: opacity 0.5s ease;
 }
 
+/* --- PEGA ESTO EN TU CSS (Reemplaza lo anterior) --- */
+
+.sticker-container {
+  position: fixed;
+  bottom: 15%;
+  right: 8%;
+  width: 280px;
+  height: auto;
+  z-index: 20;
+  pointer-events: none;
+  display: block;
+  /* ... El resto igual ... */
+
+  /* Cambiamos la posición para que no estorbe al texto "HOLA SOY TEA" */
+  right: -20px; /* Un poco hacia afuera a la derecha */
+  bottom: -40px; /* Más abajo para salir del área de lectura */
+
+  /* Opcional: Si aún molesta, bajamos su prioridad visual */
+  opacity: 0.9;
+}
 .mascot-body {
   width: 100%;
   height: 100%;
@@ -373,45 +397,80 @@ section {
   pointer-events: none;
 }
 
+/* Allow interactions inside the archive gallery section */
+#archive {
+  pointer-events: auto;
+}
+
 /* ESPACIADO CORREGIDO: Evita que el texto del hero se solape con about */
 #about {
   padding-top: 20vh;
   padding-bottom: 10vh;
 }
 
-.container,
-.container-fluid {
-  pointer-events: auto;
-}
-.section-title {
-  font-size: 4rem;
-  margin-bottom: 3rem;
-  color: var(--text-main);
+.sticker-container {
+  position: absolute;
+  top: 50%;
+  right: 10%;
+  /* Canvas size for the sticker - adjust if needed */
+  width: 320px;
+  height: auto;
+  z-index: 40; /* ensure sticker sits above hero text */
+  pointer-events: none;
+  display: block;
+  -webkit-font-smoothing: antialiased;
+  --sticker-offset-x: -150px;
+  --sticker-offset-y: -120px;
+  --eyes-x: 140px;
+  --eyes-y: 55px;
+  --eyes-width: 50%;
+  --eyes-wink-offset-x: 12px;
+  --eyes-wink-offset-y: -6px;
 }
 
-/* Gallery */
-.swipe-gallery-container {
+.sticker-container .capa {
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
-  overflow-x: auto;
-  padding-bottom: 3rem;
-  padding-left: 5vw;
-  padding-right: 5vw;
-  -webkit-overflow-scrolling: touch;
-  touch-action: pan-y;
-  scrollbar-width: none;
-  pointer-events: auto;
+  height: auto;
+  display: block;
 }
-.swipe-gallery-container::-webkit-scrollbar {
-  display: none;
+
+.sticker-container .base {
+  z-index: 1;
 }
-.gallery-track {
-  display: inline-flex;
-  gap: 40px;
+.sticker-container .eyes-open {
+  z-index: 2;
 }
+.sticker-container .eyes-wink {
+  z-index: 3;
+}
+.sticker-container .eyes-open,
+.sticker-container .eyes-wink {
+  left: var(--eyes-x);
+  top: var(--eyes-y);
+  width: var(--eyes-width);
+  height: auto;
+  transform: translateX(-50%);
+}
+.sticker-container .eyes-wink {
+  left: calc(var(--eyes-x) + var(--eyes-wink-offset-x));
+  top: calc(var(--eyes-y) + var(--eyes-wink-offset-y));
+  transform: translateX(-52%) scale(1.12);
+  transform-origin: center;
+}
+
+.sticker-container img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
 .gallery-item {
-  width: 350px;
   flex-shrink: 0;
   cursor: none;
+  pointer-events: auto; /* Permitir interacciones (scroll / drag) */
   transition: transform 0.3s ease;
 }
 .gallery-item:hover {
@@ -434,6 +493,34 @@ section {
 }
 .gallery-item:hover .gallery-img-wrapper img {
   transform: scale(1.1);
+}
+
+/* --- HORIZONTAL SWIPE GALLERY --- */
+.swipe-gallery-container {
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+  touch-action: pan-y;
+  padding: 2rem 0;
+  pointer-events: auto; /* Reactiva el scroll horizontal dentro de la sección */
+  cursor: grab;
+}
+
+.gallery-track {
+  display: flex;
+  gap: 2rem;
+  align-items: flex-start;
+  padding: 0 1.5rem;
+}
+
+.gallery-item {
+  width: 360px; /* fixed card width for desktop */
+  scroll-snap-align: start;
+  pointer-events: auto; /* Asegura que cada tarjeta reciba eventos táctiles/ratón */
+}
+
+.swipe-gallery-container.dragging {
+  cursor: grabbing;
 }
 
 /* --- OVERLAY --- */
@@ -562,12 +649,43 @@ footer {
   .gallery-item {
     width: 85vw;
   }
-  .mascot-container {
-    width: 100px;
-    height: 120px;
-    bottom: 15%;
-    right: 5%;
-    opacity: 0.8;
+  /* Contenedor principal del personaje */
+  .sticker-container {
+    position: absolute; /* Para que flote sobre/al lado del texto */
+    top: 50%; /* Centrado verticalmente */
+    right: 10%; /* A un 10% del borde derecho de la pantalla */
+
+    width: 350px; /* Tamaño del personaje (ajústalo a tu gusto) */
+    height: auto; /* Mantiene la proporción */
+    z-index: 40; /* Asegura que esté por encima del texto del hero */
+    pointer-events: none; /* Opcional: para que puedas hacer click en cosas que estén debajo */
+  }
+
+  /* IMPORTANTE: Asegúrate de que la sección HERO (donde está el texto) tenga position: relative */
+  .hero-section {
+    /* O como se llame tu contenedor del texto "HOLA SOY TEA" */
+    position: relative;
+  }
+
+  /* El resto del CSS interno del sticker se mantiene igual */
+  .capa {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+  .base {
+    position: relative;
+    z-index: 1;
+  }
+  .eyes-open {
+    z-index: 2;
+  }
+  .eyes-wink {
+    z-index: 3;
+    opacity: 0;
   }
   .tools-panel {
     width: 90%;
@@ -711,6 +829,7 @@ footer {
     left: 20px;
   }
 }
+
 /* --- WIDGET IDIOMA (DESPLIEGUE HORIZONTAL) --- */
 #lang-widget {
   position: fixed;

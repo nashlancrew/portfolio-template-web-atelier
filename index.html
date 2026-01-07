@@ -148,17 +148,27 @@
     <!-- HERO -->
     <section id="hero">
       <div class="hero-text-container" id="hero-text">
-        <h1 class="big-title" data-lang="big-title">HOLA,<br />SOY TEA</h1>
+        <h1 class="big-title" data-lang="big-title">
+          HOLA,<br />SOY MARI<span id="tea-A">A</span>
+        </h1>
         <div class="hero-subtitle" data-lang="hero-subtitle">
           Portfolio & Visual Playground
         </div>
       </div>
 
       <!-- Personaje Animado -->
-      <div class="mascot-container" id="mascot">
-        <div class="mascot-body">
-          <div class="mascot-legs"></div>
-        </div>
+      <div class="sticker-container">
+        <img src="assets/images/sticker-base.png" class="capa base" />
+
+        <img
+          src="assets/images/sticker-ojos-abiertos.png"
+          class="capa eyes-open"
+        />
+
+        <img
+          src="assets/images/sticker-ojos-cerrados.png"
+          class="capa eyes-wink"
+        />
       </div>
     </section>
 
@@ -176,14 +186,15 @@
                 color: var(--text-main);
               "
             >
-              CREATIVIDAD<br />SIN LÍMITES
+              HISTORIAS EN<br />CONSTANTE MOVIMIENTO
             </h2>
           </div>
           <div class="col-lg-4 offset-lg-1">
             <p class="lead" data-lang="about-body">
-              Hola, soy Tea. Diseñadora visual e ilustradora. Este sitio es un
-              lienzo vivo; no solo para mostrar mi trabajo, sino para que
-              interactúes con él.
+              Hola, soy Maria (Nash para abreviar). Diseñadora visual e
+              ilustradora. Empece a hacer lo que hago porque amo contar
+              historias. Este sitio esta hecho para exploar, jugar, y que puedas
+              descubrir mi trabajo, ¿te animas a jugar con el?
             </p>
           </div>
         </div>
@@ -448,11 +459,11 @@
           contact: "CONTACTO",
           "dark-mode-toggle":
             "<i class='fa-solid fa-circle-half-stroke fa-lg'></i>",
-          "big-title": "HOLA,<br />SOY TEA",
+          "big-title": "HOLA,<br />SOY MARI<span id='tea-A'>A</span>",
           "hero-subtitle": "Portfolio & Visual Playground",
-          "about-h2": "CREATIVIDAD<br />SIN LÍMITES",
+          "about-h2": "HISTORIAS EN<br />MOVIMIENTO",
           "about-body":
-            "Hola, soy Tea. Diseñadora visual e ilustradora. Este sitio es un lienzo vivo; no solo para mostrar mi trabajo, sino para que interactúes con él.",
+            "Hola, soy Maria. Diseñadora visual e ilustradora, ubicada en Madrid. Empece a hacer lo que hago porque amo contar historias. Este sitio esta hecho para explorar, jugar, y que puedas descubrir mi trabajo, ¿te animas a jugar con el?",
           "archive-title": "ARCHIVO<span style='color: var(--accent)'>.</span>",
           "salir-playground":
             "<i class='fa-solid fa-arrow-left me-2'></i> SALIR",
@@ -479,11 +490,11 @@
           contact: "CONTACT",
           "dark-mode-toggle":
             "<i class='fa-solid fa-circle-half-stroke fa-lg'></i>",
-          "big-title": "HELLO,<br />I'M TEA",
+          "big-title": "HELLO, I'M<br />MARI<span id='tea-A'>A</span>",
           "hero-subtitle": "Portfolio & Visual Playground",
-          "about-h2": "CREATIVITY<br />WITHOUT LIMITS",
+          "about-h2": "STORIES IN<br />MOTION",
           "about-body":
-            "Hi, I'm Tea. Visual designer and illustrator. This site is a living canvas; not only to showcase my work, but for you to interact with it.",
+            "Hi, I'm Maria. Visual designer and illustrator based in Madrid. I started doing what I do because I love telling stories. This site is made to explore, play, and let you discover my work. Do you want to play with it?",
           "archive-title": "ARCHIVE<span style='color: var(--accent)'>.</span>",
           "salir-playground":
             "<i class='fa-solid fa-arrow-left me-2'></i> EXIT",
@@ -510,11 +521,11 @@
           contact: "CONTACT",
           "dark-mode-toggle":
             "<i class='fa-solid fa-circle-half-stroke fa-lg'></i>",
-          "big-title": "HALLO,<br />IK BEN TEA",
+          "big-title": "HALLO,<br />IK BEN MARI<span id='tea-A'>A</span>",
           "hero-subtitle": "Portfolio & Visuele Speelplaats",
-          "about-h2": "CREATIVITEIT<br />ZONDER LIMITES",
+          "about-h2": "VERHALEN IN<br />BEWEGING",
           "about-body":
-            "Hoi, ik ben Tea. Visueel ontwerper en illustrator. Deze site is een levend canvas; niet alleen om mijn werk te laten zien, maar ook om ermee te interageren.",
+            "Hoi, ik ben Maria. Visueel ontwerper en illustrator, gevestigd in Madrid. Ik ben begonnen met wat ik doe omdat ik van verhalen vertellen houd. Deze site is gemaakt om te ontdekken, te spelen en mijn werk te leren kennen. Doe je mee?",
           "archive-title": "ARCHIEF<span style='color: var(--accent)'>.</span>",
           "salir-playground":
             "<i class='fa-solid fa-arrow-left me-2'></i> TERUG",
@@ -580,6 +591,10 @@
         if (typeof window.renderArchive === "function") window.renderArchive();
         if (typeof window.updateOpenProjectContent === "function")
           window.updateOpenProjectContent();
+        if (typeof window.scheduleStickerRelayout === "function")
+          window.scheduleStickerRelayout();
+        else if (typeof window.positionStickerOnTeaA === "function")
+          window.positionStickerOnTeaA();
 
         toggleLangMenu();
       }
