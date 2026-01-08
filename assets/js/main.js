@@ -3,20 +3,61 @@ const projects = [
   {
     id: 1,
     title: {
-      es: "LUZ DE TARDE",
-      en: "AFTERNOON LIGHT",
-      nl: "AVONDLICHT",
+      es: "Animacion de Handicap International para el festival Sfinks 2024",
+      en: "Handicap's International animation for Sfinks Festival 2024",
+      nl: "Handicap International animatie voor Sfinks Festival 2024",
     },
-    year: "2024",
+    year: "2025",
     category: {
-      es: "Arte Tradicional",
-      en: "Traditional Art",
-      nl: "Traditionele Kunst",
+      es: "Prgramacion, Arte Digital, Realidad Aumentada",
+      en: "Programming, Digital Art, Augmented Reality",
+      nl: "Programmeren, Digitale Kunst, Augmented Reality",
     },
-    img: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2564&auto=format&fit=crop",
-    desc: "Un estudio contemplativo.",
-    client: "Colección Privada",
-    services: "Óleo",
+    img: "assets/images/handicap_logo.jpg",
+    embed: "https://handicap-moreido.github.io/MoreIDo_AR_project/",
+    embedCaption: {
+      es: "Demo de realidad aumentada",
+      en: "Augmented reality demo",
+      nl: "Augmented reality-demo",
+    },
+    extraMedia: [
+      {
+        type: "image",
+        src: "assets/images/PHOTO-2025-07-26-18-55-29.jpg",
+        caption: {
+          es: "Demostracion en vivo en Sfinks'25",
+          en: "Live demo at Sfinks'25",
+          nl: "Live demo op Sfinks'25",
+        },
+      },
+    ],
+    desc: {
+      es: `Durante mi Erasmus, trabajé con la ONG Handicap International para crear una experiencia inmersiva para el festival de verano belga Sfinks. Junto con mi equipo, desarrollé una experiencia de realidad aumentada (en inglés, francés y neerlandés) que cuenta las historias y la vida cotidiana de personas amputadas y refugiadas de guerra al alcance de tus dedos.
+
+Trabajé en experiencia de usuario y desarrollo, elaborando las preguntas para los grupos focales, iterando la interfaz según los comentarios y programando junto a mis compañeros.
+
+El proyecto se presentó en julio de 2025 en el festival Sfinks.`,
+      en: `During my Erasmus, I worked with the NGO Handicap International to create an immersive experience for the Belgian summer festival Sfinks. Along with my teammates, I built an AR experience (in English, French, and Dutch) that tells the stories and daily lives of amputees and war refugees right at your fingertips.
+
+I worked on user experience and development, writing the focus-group questions, iterating on the UI based on feedback, and coding alongside my colleagues.
+
+The project was presented in July 2025 at the Sfinks Festival.`,
+      nl: `Tijdens mijn Erasmus werkte ik met de NGO Handicap International om een meeslepende ervaring te creëren voor het Belgische zomerfestival Sfinks. Samen met mijn team ontwikkelde ik een AR-ervaring (in het Engels, Frans en Nederlands) die de verhalen en het dagelijks leven van geamputeerden en oorlogsvluchtelingen tot binnen handbereik brengt.
+
+Ik werkte aan user experience en ontwikkeling: ik stelde de vragen voor de focusgroepen op, verfijnde de UI op basis van feedback en programmeerde samen met mijn collega's.
+
+Het project werd in juli 2025 gepresenteerd op het Sfinks Festival.`,
+    },
+    client: {
+      es: "Handicap International Belgica",
+      en: "Handicap International Belgium",
+      nl: "Handicap International België",
+    },
+    services: {
+      es: "Diseño de UX|UI, Programacion e Ilustración Digital",
+      en: "UX|UI Design, Programming and Digital Illustration",
+      nl: "UX|UI Ontwerp, Programmeren en Digitale Illustratie",
+    },
   },
   {
     id: 2,
@@ -77,45 +118,76 @@ gsap.registerPlugin(ScrollTrigger);
 let lenis;
 let isPlaygroundActive = false;
 let hasInitialized = false;
+const prefersReducedMotion = window.matchMedia(
+  "(prefers-reduced-motion: reduce)"
+).matches;
 
 function init() {
   // Smooth Scroll Optimizado
-  lenis = new Lenis({
-    duration: 1.0,
-    easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-    smoothTouch: true,
-  });
-  function raf(time) {
-    lenis.raf(time);
+  if (prefersReducedMotion) {
+    lenis = {
+      raf: () => {},
+      stop: () => {},
+      start: () => {},
+      scrollTo: (value) => {
+        const y = typeof value === "number" ? value : 0;
+        window.scrollTo(0, y);
+      },
+    };
+  } else {
+    lenis = new Lenis({
+      duration: 1.0,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      smoothTouch: true,
+    });
+    function raf(time) {
+      lenis.raf(time);
+      requestAnimationFrame(raf);
+    }
     requestAnimationFrame(raf);
   }
-  requestAnimationFrame(raf);
 
   // Intro Animation
-  const tl = gsap.timeline();
-  tl.to(".big-title", {
-    opacity: 1,
-    y: 0,
-    duration: 1.5,
-    ease: "power4.out",
-    delay: 0.2,
-  })
-    .to(
-      ".hero-subtitle",
-      { opacity: 1, y: 0, duration: 1, ease: "power3.out" },
-      "-=1"
-    )
-    .eventCallback("onComplete", positionStickerOnTeaA);
+  if (prefersReducedMotion) {
+    const titleEl = document.querySelector(".big-title");
+    if (titleEl) {
+      titleEl.style.opacity = "1";
+      titleEl.style.transform = "none";
+    }
+    const subtitleEl = document.querySelector(".hero-subtitle");
+    if (subtitleEl) {
+      subtitleEl.style.opacity = "1";
+      subtitleEl.style.transform = "none";
+    }
+  } else {
+    const tl = gsap.timeline();
+    tl.to(".big-title", {
+      opacity: 1,
+      y: 0,
+      duration: 1.5,
+      ease: "power4.out",
+      delay: 0.2,
+    })
+      .to(
+        ".hero-subtitle",
+        { opacity: 1, y: 0, duration: 1, ease: "power3.out" },
+        "-=1"
+      )
+      .eventCallback("onComplete", positionStickerOnTeaA);
+  }
   // --- AQUÍ AÑADES LA LLAMADA NUEVA ---
-  initStickerAnimation();
+  if (!prefersReducedMotion) initStickerAnimation();
   // position sticker relative to the TEA 'A' when available
   positionStickerOnTeaA();
-  scheduleStickerRelayout();
+  if (!prefersReducedMotion) scheduleStickerRelayout();
   // ------------------------------------
   renderArchive();
   resizeCanvas();
   window.addEventListener("resize", resizeCanvas);
   setupHoverEffects();
+  setupContactFormFeedback();
+  setupKeyboardActivation();
+  setupOverlayAccessibility();
   if (document.fonts && document.fonts.ready) {
     document.fonts.ready.then(positionStickerOnTeaA);
   }
@@ -137,6 +209,10 @@ window.addEventListener("load", () => {
 });
 
 function scheduleStickerRelayout() {
+  if (prefersReducedMotion) {
+    positionStickerOnTeaA();
+    return;
+  }
   let frames = 0;
   const tick = () => {
     positionStickerOnTeaA();
@@ -204,7 +280,14 @@ function renderArchive() {
       const title =
         typeof p.title === "object" ? p.title[lang] || p.title.es : p.title;
       return `
-        <div class="gallery-item hover-trigger" data-project-id="${p.id}">
+        <div
+          class="gallery-item hover-trigger"
+          data-project-id="${p.id}"
+          role="button"
+          tabindex="0"
+          aria-haspopup="dialog"
+          aria-label="${title}"
+        >
           <div class="gallery-img-wrapper">
             <img src="${p.img}" alt="${title}">
           </div>
@@ -219,6 +302,18 @@ function renderArchive() {
 
   // Re-attach gallery scroll interactions after rendering
   if (typeof setupGalleryScroll === "function") setupGalleryScroll();
+  if (!container.__galleryKeyboardInit) {
+    container.__galleryKeyboardInit = true;
+    container.addEventListener("keydown", (event) => {
+      if (event.key !== "Enter" && event.key !== " ") return;
+      const item = event.target.closest(".gallery-item");
+      if (!item) return;
+      event.preventDefault();
+      event.stopPropagation();
+      const id = Number(item.dataset.projectId);
+      if (!Number.isNaN(id)) openProject(id);
+    });
+  }
 }
 
 // Enable pointer/touch drag to scroll and wheel-to-scroll for the gallery
@@ -346,6 +441,7 @@ function activatePlayground() {
 function exitPlayground() {
   if (document.body.classList.contains("drawing-enabled")) toggleDrawingMode();
   isPlaygroundActive = false;
+  clearCanvas();
 
   // ocultar panel de herramientas al salir del playground
   document.getElementById("tools-panel").classList.add("hidden");
@@ -436,17 +532,169 @@ function toggleTools() {
 }
 function toggleContactForm(btn) {
   btn.classList.toggle("active");
-  document.querySelector(".contact-form-container").classList.toggle("open");
+  const container = document.querySelector(".contact-form-container");
+  if (!container) return;
+  const isOpen = container.classList.toggle("open");
+  btn.setAttribute("aria-expanded", String(isOpen));
+  container.setAttribute("aria-hidden", isOpen ? "false" : "true");
 }
 function toggleDarkMode() {
   document.body.classList.toggle("dark-mode");
 }
-function openProject(id) {
-  const p = projects.find((item) => item.id === id);
-  if (!p) return;
-  // store currently open project id
-  window.currentOpenProjectId = id;
+function setupKeyboardActivation() {
+  document.addEventListener("keydown", (event) => {
+    if (event.key !== "Enter" && event.key !== " ") return;
+    const target = event.target;
+    if (!target) return;
+    if (target.matches("[role='button']")) {
+      event.preventDefault();
+      target.click();
+    }
+  });
+}
+function setupOverlayAccessibility() {
+  if (window.__overlayKeyInit) return;
+  window.__overlayKeyInit = true;
+  document.addEventListener("keydown", (event) => {
+    const overlay = document.getElementById("project-overlay");
+    if (!overlay || !overlay.classList.contains("active")) return;
+    if (event.key === "Escape") {
+      closeProject();
+      return;
+    }
+    if (event.key !== "Tab") return;
+    const focusable = Array.from(
+      overlay.querySelectorAll(
+        'a[href], button:not([disabled]), textarea, input, select, [tabindex]:not([tabindex="-1"])'
+      )
+    ).filter((el) => !el.hasAttribute("aria-hidden"));
+    if (!focusable.length) return;
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
+    if (event.shiftKey && document.activeElement === first) {
+      event.preventDefault();
+      last.focus();
+    } else if (!event.shiftKey && document.activeElement === last) {
+      event.preventDefault();
+      first.focus();
+    }
+  });
+}
+function setupContactFormFeedback() {
+  const form = document.getElementById("contact-form");
+  const toast = document.getElementById("form-toast");
+  const closeBtn = document.getElementById("form-toast-close");
+  if (!form || !toast) return;
 
+  const hideToast = () => {
+    toast.classList.remove("show");
+    toast.hidden = true;
+  };
+  const showToast = () => {
+    toast.hidden = false;
+    toast.classList.add("show");
+    if (toast.__hideTimeout) clearTimeout(toast.__hideTimeout);
+    toast.__hideTimeout = setTimeout(hideToast, 4500);
+  };
+
+  form.addEventListener("submit", () => {
+    showToast();
+  });
+  if (closeBtn) closeBtn.addEventListener("click", hideToast);
+}
+let cameraStream = null;
+let cameraRequestInFlight = false;
+async function requestCameraAccess() {
+  if (cameraStream || cameraRequestInFlight) return;
+  if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+    console.warn("Camera access not supported in this browser.");
+    return;
+  }
+  cameraRequestInFlight = true;
+  try {
+    cameraStream = await navigator.mediaDevices.getUserMedia({ video: true });
+  } catch (error) {
+    console.warn("Camera access denied or failed.", error);
+  } finally {
+    cameraRequestInFlight = false;
+  }
+}
+function stopCameraAccess() {
+  if (!cameraStream) return;
+  cameraStream.getTracks().forEach((track) => track.stop());
+  cameraStream = null;
+}
+function getLocalizedValue(value, lang) {
+  if (value == null) return "";
+  if (typeof value === "object") return value[lang] || value.es || "";
+  return value;
+}
+function setProjectMedia(p, title) {
+  const imgEl = document.getElementById("detail-img");
+  const embedEl = document.getElementById("detail-embed");
+  if (!imgEl || !embedEl) return;
+  if (p.embed) {
+    embedEl.src = p.embed;
+    embedEl.hidden = false;
+    imgEl.hidden = true;
+  } else {
+    embedEl.hidden = true;
+    embedEl.src = "";
+    imgEl.hidden = false;
+    if (p.img) imgEl.src = p.img;
+  }
+  if (title) {
+    imgEl.alt = title;
+    embedEl.title = title;
+  }
+}
+function setEmbedCaption(p, lang) {
+  const captionEl = document.getElementById("detail-embed-caption");
+  if (!captionEl) return;
+  const caption = getLocalizedValue(p.embedCaption, lang);
+  if (p.embed && caption) {
+    captionEl.textContent = caption;
+    captionEl.hidden = false;
+  } else {
+    captionEl.textContent = "";
+    captionEl.hidden = true;
+  }
+}
+function updateProjectMediaLayout(p) {
+  const mediaWrap = document.getElementById("project-media");
+  if (!mediaWrap) return;
+  const hasEmbed = Boolean(p.embed);
+  const hasExtra = Array.isArray(p.extraMedia) && p.extraMedia.length > 0;
+  mediaWrap.classList.toggle("is-split", hasEmbed && hasExtra);
+}
+function renderExtraMedia(p, title, lang) {
+  const container = document.getElementById("detail-extra-media");
+  if (!container) return;
+  const items = Array.isArray(p.extraMedia) ? p.extraMedia : [];
+  if (!items.length) {
+    container.innerHTML = "";
+    container.hidden = true;
+    updateProjectMediaLayout(p);
+    return;
+  }
+  const markup = items
+    .map((item) => {
+      if (!item || item.type !== "image" || !item.src) return "";
+      const caption = getLocalizedValue(item.caption, lang);
+      const alt = caption || title || "Project image";
+      return `
+        <figure class="project-extra-item">
+          <img src="${item.src}" alt="${alt}" loading="lazy" />
+          ${caption ? `<figcaption>${caption}</figcaption>` : ""}
+        </figure>
+      `;
+    })
+    .join("");
+  container.innerHTML = markup;
+  container.hidden = false;
+  updateProjectMediaLayout(p);
+}
+function setProjectDetails(p) {
   const lang = window.currentLang || "es";
   const title =
     typeof p.title === "object" ? p.title[lang] || p.title.es : p.title;
@@ -454,18 +702,73 @@ function openProject(id) {
     typeof p.category === "object"
       ? p.category[lang] || p.category.es
       : p.category;
-  document.getElementById("detail-title").innerText = title;
-  document.getElementById("detail-img").src = p.img;
+  const desc = getLocalizedValue(p.desc, lang);
+  const client = getLocalizedValue(p.client, lang);
+  const services = getLocalizedValue(p.services, lang);
+
+  const titleEl = document.getElementById("detail-title");
+  if (titleEl) titleEl.innerText = title || "";
+  const catEl = document.getElementById("detail-category");
+  if (catEl) catEl.innerText = category || "";
+  const descEl = document.getElementById("detail-desc");
+  if (descEl) descEl.innerText = desc || "";
+  const clientEl = document.getElementById("detail-client");
+  if (clientEl) clientEl.innerText = client || "";
+  const servicesEl = document.getElementById("detail-services");
+  if (servicesEl) servicesEl.innerText = services || "";
+  const yearEl = document.getElementById("detail-year");
+  if (yearEl) yearEl.innerText = p.year || "";
+
+  setProjectMedia(p, title);
+  setEmbedCaption(p, lang);
+  renderExtraMedia(p, title, lang);
+  updateProjectMediaLayout(p);
+}
+function openProject(id) {
+  const p = projects.find((item) => item.id === id);
+  if (!p) return;
+  // store currently open project id
+  window.currentOpenProjectId = id;
+  window.lastFocusedElement = document.activeElement;
+
+  setProjectDetails(p);
   // ... resto de datos
   document.getElementById("project-overlay").classList.add("active");
+  const overlay = document.getElementById("project-overlay");
+  if (overlay) {
+    overlay.setAttribute("aria-hidden", "false");
+  }
+  const closeBtn = overlay ? overlay.querySelector(".close-btn") : null;
+  if (closeBtn) closeBtn.focus();
   lenis.stop();
   document.body.style.overflow = "hidden";
+  if (id === 1) requestCameraAccess();
 }
 function closeProject() {
-  document.getElementById("project-overlay").classList.remove("active");
+  const overlay = document.getElementById("project-overlay");
+  if (overlay) {
+    overlay.classList.remove("active");
+    overlay.setAttribute("aria-hidden", "true");
+  }
   lenis.start();
   document.body.style.overflow = "";
+  if (window.currentOpenProjectId === 1) stopCameraAccess();
+  const embedEl = document.getElementById("detail-embed");
+  if (embedEl) {
+    embedEl.src = "";
+    embedEl.hidden = true;
+  }
+  const captionEl = document.getElementById("detail-embed-caption");
+  if (captionEl) {
+    captionEl.textContent = "";
+    captionEl.hidden = true;
+  }
+  const imgEl = document.getElementById("detail-img");
+  if (imgEl) imgEl.hidden = false;
   window.currentOpenProjectId = null;
+  if (window.lastFocusedElement && window.lastFocusedElement.focus) {
+    window.lastFocusedElement.focus();
+  }
 }
 
 // Update the currently open project's textual content (called when language changes)
@@ -474,16 +777,7 @@ window.updateOpenProjectContent = function () {
   if (!id) return;
   const p = projects.find((item) => item.id === id);
   if (!p) return;
-  const lang = window.currentLang || "es";
-  const title =
-    typeof p.title === "object" ? p.title[lang] || p.title.es : p.title;
-  const category =
-    typeof p.category === "object"
-      ? p.category[lang] || p.category.es
-      : p.category;
-  document.getElementById("detail-title").innerText = title;
-  const catEl = document.getElementById("detail-category");
-  if (catEl) catEl.innerText = category;
+  setProjectDetails(p);
 };
 
 // --- CURSOR ---
@@ -505,39 +799,221 @@ function setupHoverEffects() {
 // --- LÓGICA DE MÚSICA ---
 let isMusicPlaying = false;
 const audioPlayer = document.getElementById("audio-player");
+const playlist = [
+  "https://file.garden/aUloIK3Gbmwc6_yg/web_playlist/Pommelien%20Thijs%20-%20Erop%20Of%20Eronder%20(Official%20Lyric%20video).mp3",
+  "https://file.garden/aUloIK3Gbmwc6_yg/web_playlist/MICO%20%E2%80%93%20glhf%E1%90%B83%20%5Bofficial%20visual%5D.mp3",
+  "https://file.garden/aUloIK3Gbmwc6_yg/web_playlist/MICO%20%E2%80%93%20Senses%20%5Bofficial%20video%5D.mp3",
+  "https://file.garden/aUloIK3Gbmwc6_yg/web_playlist/Marco%20Mares%20-%20amable%20(trending%20topic%20en%20tu%20cora).mp3",
+  "https://file.garden/aUloIK3Gbmwc6_yg/web_playlist/MICO%20%E2%80%93%20HOMESICK%20%5Bofficial%20video%5D.mp3",
+  "https://file.garden/aUloIK3Gbmwc6_yg/web_playlist/Koning%20minimaliseren.mp3",
+  "https://file.garden/aUloIK3Gbmwc6_yg/web_playlist/Marco%20Mares%20-%20Sin%20Puntos%20Ni%20Mayu%CC%81sculas%20(Audio).mp3",
+  "https://file.garden/aUloIK3Gbmwc6_yg/web_playlist/Benson%20Boone%20-%20Be%20Someone%20(Official%20Lyric%20Video).mp3",
+  "https://file.garden/aUloIK3Gbmwc6_yg/web_playlist/Benson%20Boone%20-%20Sorry%20I'm%20Here%20For%20Someone%20Else%20(Official%20Lyric%20Video).mp3",
+];
+let currentTrackIndex = 0;
 
 // Volumen bajo para no asustar
 if (audioPlayer) audioPlayer.volume = 0.4;
 
-function toggleMusic() {
+function getTrackTitleFromUrl(url) {
+  if (!url) return "";
+  try {
+    const decoded = decodeURIComponent(url);
+    const parts = decoded.split("/");
+    const file = parts[parts.length - 1] || "";
+    return file.replace(/\.mp3$/i, "").trim();
+  } catch (error) {
+    return url;
+  }
+}
+function updateTrackTitle(index) {
+  const titleEl = document.getElementById("track-title");
+  if (!titleEl || !playlist.length) return;
+  const title = getTrackTitleFromUrl(playlist[index]);
+  titleEl.textContent = title || "Audio";
+}
+function updateTracklistActive() {
+  const listEl = document.getElementById("tracklist");
+  if (!listEl) return;
+  const items = Array.from(listEl.querySelectorAll(".tracklist-item"));
+  items.forEach((item, index) => {
+    const isActive = index === currentTrackIndex;
+    item.classList.toggle("is-active", isActive);
+    const btn = item.querySelector("button");
+    if (btn) btn.setAttribute("aria-current", isActive ? "true" : "false");
+  });
+}
+function renderTracklist() {
+  const listEl = document.getElementById("tracklist");
+  if (!listEl || !playlist.length) return;
+  listEl.innerHTML = playlist
+    .map((url, index) => {
+      const title = getTrackTitleFromUrl(url) || `Track ${index + 1}`;
+      const activeClass = index === currentTrackIndex ? "is-active" : "";
+      const ariaCurrent =
+        index === currentTrackIndex ? ' aria-current="true"' : "";
+      return `
+        <li class="tracklist-item ${activeClass}">
+          <button type="button" data-track-index="${index}"${ariaCurrent}>${title}</button>
+        </li>
+      `;
+    })
+    .join("");
+  listEl.querySelectorAll("button").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const idx = Number(btn.dataset.trackIndex);
+      if (Number.isNaN(idx)) return;
+      setTrack(idx);
+      playCurrentTrack()
+        .then(() => {
+          isMusicPlaying = true;
+          updateMusicUI(true);
+        })
+        .catch(() => {
+          isMusicPlaying = false;
+          updateMusicUI(false);
+        });
+    });
+  });
+}
+function setTrack(index) {
+  if (!audioPlayer || !playlist.length) return;
+  currentTrackIndex = (index + playlist.length) % playlist.length;
+  const src = playlist[currentTrackIndex];
+  if (audioPlayer.getAttribute("src") !== src) {
+    audioPlayer.src = src;
+  }
+  updateTrackTitle(currentTrackIndex);
+  updateTracklistActive();
+}
+function updateMusicUI(isPlaying) {
   const cdPlayer = document.querySelector(".cd-player");
   const playIcon = document.getElementById("play-icon");
   const pauseIcon = document.getElementById("pause-icon");
+  if (!cdPlayer || !playIcon || !pauseIcon) return;
+  if (isPlaying) {
+    cdPlayer.classList.add("playing");
+    playIcon.style.display = "none";
+    pauseIcon.style.display = "block";
+  } else {
+    cdPlayer.classList.remove("playing");
+    playIcon.style.display = "block";
+    pauseIcon.style.display = "none";
+  }
+}
+function playCurrentTrack() {
+  if (!audioPlayer || !playlist.length) return Promise.resolve();
+  if (!audioPlayer.getAttribute("src")) setTrack(currentTrackIndex);
+  return audioPlayer.play();
+}
+function advanceTrack() {
+  if (!playlist.length) return;
+  setTrack(currentTrackIndex + 1);
+  if (isMusicPlaying) {
+    audioPlayer.play().catch(() => {
+      isMusicPlaying = false;
+      updateMusicUI(false);
+    });
+  }
+}
+function changeTrackBy(delta) {
+  if (!playlist.length) return;
+  setTrack(currentTrackIndex + delta);
+  if (isMusicPlaying) {
+    audioPlayer.play().catch(() => {
+      isMusicPlaying = false;
+      updateMusicUI(false);
+    });
+  }
+}
+if (audioPlayer) {
+  audioPlayer.addEventListener("ended", advanceTrack);
+  audioPlayer.addEventListener("error", advanceTrack);
+  updateTrackTitle(currentTrackIndex);
+  renderTracklist();
+}
+window.addEventListener("keydown", (event) => {
+  if (event.key !== "ArrowRight" && event.key !== "ArrowLeft") return;
+  const active = document.activeElement;
+  if (
+    active &&
+    (active.tagName === "INPUT" ||
+      active.tagName === "TEXTAREA" ||
+      active.isContentEditable)
+  ) {
+    return;
+  }
+  changeTrackBy(event.key === "ArrowRight" ? 1 : -1);
+});
+const musicWidget = document.getElementById("music-widget");
+const cdPlayer = musicWidget ? musicWidget.querySelector(".cd-player") : null;
+const tracklistPanel = document.getElementById("tracklist-panel");
+const langWidget = document.getElementById("lang-widget");
+if (musicWidget) {
+  const controls = musicWidget.querySelectorAll("[data-track-action]");
+  controls.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const action = btn.dataset.trackAction;
+      if (action === "next") changeTrackBy(1);
+      if (action === "prev") changeTrackBy(-1);
+    });
+  });
+}
+if (musicWidget && cdPlayer && tracklistPanel) {
+  const setTracklistOpen = (isOpen) => {
+    musicWidget.classList.toggle("tracklist-open", isOpen);
+    tracklistPanel.setAttribute("aria-hidden", isOpen ? "false" : "true");
+  };
+  setTracklistOpen(false);
+  const openTracklist = () => setTracklistOpen(true);
+  const closeTracklist = (event) => {
+    const related = event.relatedTarget;
+    if (
+      related &&
+      (cdPlayer.contains(related) || tracklistPanel.contains(related))
+    ) {
+      return;
+    }
+    setTracklistOpen(false);
+  };
+  cdPlayer.addEventListener("mouseenter", openTracklist);
+  cdPlayer.addEventListener("mouseleave", closeTracklist);
+  tracklistPanel.addEventListener("mouseenter", openTracklist);
+  tracklistPanel.addEventListener("mouseleave", closeTracklist);
+  musicWidget.addEventListener("focusin", (event) => {
+    if (langWidget && langWidget.contains(event.target)) return;
+    openTracklist();
+  });
+  musicWidget.addEventListener("focusout", (event) => {
+    const related = event.relatedTarget;
+    if (related && musicWidget.contains(related)) return;
+    setTracklistOpen(false);
+  });
+}
+
+function toggleMusic() {
+  if (!audioPlayer) return;
 
   if (!isMusicPlaying) {
     // Reproducir
-    audioPlayer
-      .play()
+    playCurrentTrack()
       .then(() => {
         isMusicPlaying = true;
-        cdPlayer.classList.add("playing");
-        playIcon.style.display = "none";
-        pauseIcon.style.display = "block";
+        updateMusicUI(true);
       })
-      .catch((error) => {
+      .catch(() => {
         console.log("Autoplay bloqueado. Haz clic de nuevo.");
       });
   } else {
     // Pausar
     audioPlayer.pause();
     isMusicPlaying = false;
-    cdPlayer.classList.remove("playing");
-    playIcon.style.display = "block";
-    pauseIcon.style.display = "none";
+    updateMusicUI(false);
   }
 }
 // --- MASCOT / STICKER ANIMATION ---
 function initStickerAnimation() {
+  if (prefersReducedMotion) return;
   // 1. Verificamos que el elemento exista para evitar errores
   const container = document.querySelector(".sticker-container");
   if (!container) return;

@@ -3,7 +3,12 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>TEA | Portfolio Digital</title>
+    <title>Maria Ignacia Dafonte Mas | Portfolio Digital</title>
+    <link
+      rel="icon"
+      href="assets/images/favicon cargo.svg"
+      type="image/svg+xml"
+    />
     <!-- Bootstrap 5 CSS -->
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
@@ -114,7 +119,12 @@
     </button>
 
     <!-- UI: Tools -->
-    <div class="tools-panel hidden" id="tools-panel">
+    <div
+      class="tools-panel hidden"
+      id="tools-panel"
+      role="toolbar"
+      aria-label="Herramientas de dibujo"
+    >
       <div
         class="color-dot hover-trigger"
         style="background: #1a1a1a; border: 1px solid #ddd"
@@ -196,6 +206,28 @@
               historias. Este sitio esta hecho para exploar, jugar, y que puedas
               descubrir mi trabajo, ¿te animas a jugar con el?
             </p>
+            <div class="d-flex flex-column flex-sm-row gap-3 mt-4">
+              <a
+                class="btn btn-dark rounded-pill px-4 py-2 hover-trigger"
+                href="https://file.garden/aUloIK3Gbmwc6_yg/M.%C2%AA%20IGNACIA%20DAFONTE%20CV%202025.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                data-lang="about-download-cv"
+                download
+              >
+                Descargar CV
+              </a>
+              <a
+                class="btn btn-outline-dark rounded-pill px-4 py-2 hover-trigger"
+                href="assets/docs/portfolio.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                data-lang="about-download-portfolio"
+                download
+              >
+                Descargar Portfolio (PDF)
+              </a>
+            </div>
           </div>
         </div>
       </div>
@@ -255,13 +287,31 @@
             </p>
           </div>
           <div class="col-12 mb-5">
-            <img
-              id="detail-img"
-              src=""
-              class="w-100 object-fit-cover"
-              style="height: 60vh; border-radius: 20px"
-              alt="Project Image"
-            />
+            <div id="project-media" class="project-media">
+              <div id="project-primary-media" class="project-primary-media">
+                <img
+                  id="detail-img"
+                  src=""
+                  class="w-100 object-fit-cover"
+                  style="height: 60vh; border-radius: 20px"
+                  alt="Project Image"
+                />
+                <iframe
+                  id="detail-embed"
+                  class="w-100 project-embed"
+                  src=""
+                  title="Project Preview"
+                  loading="lazy"
+                  hidden
+                ></iframe>
+                <p id="detail-embed-caption" class="embed-caption" hidden></p>
+              </div>
+              <div
+                id="detail-extra-media"
+                class="project-extra-media"
+                hidden
+              ></div>
+            </div>
           </div>
           <div class="col-lg-8 mx-auto pb-5">
             <h3
@@ -311,6 +361,34 @@
         <i class="fa-solid fa-play" id="play-icon"></i>
         <i class="fa-solid fa-pause" id="pause-icon" style="display: none"></i>
       </div>
+      <div id="tracklist-panel" class="tracklist-panel">
+        <div class="tracklist-header">
+          <span class="tracklist-heading">TRACKLIST</span>
+          <div class="tracklist-controls">
+            <button
+              type="button"
+              class="track-btn hover-trigger"
+              data-track-action="prev"
+              aria-label="Previous track"
+            >
+              <i class="fa-solid fa-backward-step"></i>
+            </button>
+            <button
+              type="button"
+              class="track-btn hover-trigger"
+              data-track-action="next"
+              aria-label="Next track"
+            >
+              <i class="fa-solid fa-forward-step"></i>
+            </button>
+          </div>
+        </div>
+        <div class="tracklist-hint" data-lang="tracklist-hint">
+          Flechas &larr; &rarr; para cambiar pista
+        </div>
+        <div id="track-title" class="track-title">—</div>
+        <ul id="tracklist" class="tracklist"></ul>
+      </div>
 
       <!-- Botón Spotify -->
       <a
@@ -323,12 +401,7 @@
       </a>
 
       <!-- Audio (Pon aquí tu canción) -->
-      <audio id="audio-player" loop>
-        <source
-          src="https://assets.mixkit.co/music/preview/mixkit-tech-house-vibes-130.mp3"
-          type="audio/mp3"
-        />
-      </audio>
+      <audio id="audio-player" preload="none"></audio>
       <div>
         <div id="lang-widget">
           <!-- Botón Principal (Primero) -->
@@ -384,13 +457,19 @@
           <i class="fa-solid fa-chevron-down"></i>
         </button>
         <div class="contact-form-container text-start">
-          <form onsubmit="event.preventDefault(); alert('Mensaje enviado!');">
+          <form
+            id="contact-form"
+            action="mailto:nachadafonte@gmail.com?subject=Propuesta%20de%20proyecto%20-%20Desde%20Portfolio"
+            method="post"
+            enctype="text/plain"
+          >
             <div class="mb-4">
               <label class="small text-white-50 mb-2" data-lang="name"
                 >NOMBRE</label
               >
               <input
                 type="text"
+                name="name"
                 class="form-control form-control-custom hover-trigger on-dark-trigger"
                 placeholder="Tu nombre"
                 required
@@ -402,6 +481,7 @@
               >
               <input
                 type="email"
+                name="email"
                 class="form-control form-control-custom hover-trigger on-dark-trigger"
                 placeholder="tu@email.com"
                 required
@@ -412,6 +492,7 @@
                 >MENSAJE</label
               >
               <textarea
+                name="message"
                 class="form-control form-control-custom hover-trigger on-dark-trigger"
                 data-lang="idea-info"
                 rows="3"
@@ -431,18 +512,68 @@
           </form>
         </div>
         <div class="mt-5 social-links pt-5 border-top border-white-50">
-          <a href="#" class="text-white mx-3 hover-trigger on-dark-trigger"
-            ><i class="fa-brands fa-instagram fa-xl"></i
+          <a
+            href="https://www.instagram.com/nshlncrw/"
+            class="text-white mx-3 hover-trigger on-dark-trigger"
+            aria-label="Instagram"
+            target="_blank"
+            rel="noopener noreferrer"
+            ><i class="fa-brands fa-instagram fa-xl" aria-hidden="true"></i
           ></a>
-          <a href="#" class="text-white mx-3 hover-trigger on-dark-trigger"
-            ><i class="fa-brands fa-behance fa-xl"></i
+          <a
+            href="https://www.behance.net/nashlancrew"
+            class="text-white mx-3 hover-trigger on-dark-trigger"
+            aria-label="Behance"
+            target="_blank"
+            rel="noopener noreferrer"
+            ><i class="fa-brands fa-behance fa-xl" aria-hidden="true"></i
+          ></a>
+          <a
+            href="https://www.linkedin.com/in/mar%C3%ADa-ignacia-dafonte-mas"
+            class="text-white mx-3 hover-trigger on-dark-trigger"
+            aria-label="LinkedIn"
+            target="_blank"
+            rel="noopener noreferrer"
+            ><i class="fa-brands fa-linkedin-in fa-xl" aria-hidden="true"></i
+          ></a>
+          <a
+            href="https://ko-fi.com/nashlancrew"
+            class="text-white mx-3 hover-trigger on-dark-trigger"
+            aria-label="Ko-fi"
+            target="_blank"
+            rel="noopener noreferrer"
+            ><i class="fa-solid fa-mug-hot fa-xl" aria-hidden="true"></i
           ></a>
         </div>
         <p class="mt-4 text-white-50 small" data-lang="copyright-rights">
-          &copy; 2025 TEA. Todos los derechos reservados.
+          &copy; 2026 Maria Ignacia Dafonte Mas. Todos los derechos reservados.
         </p>
       </div>
     </footer>
+
+    <div
+      id="form-toast"
+      class="form-toast"
+      role="status"
+      aria-live="polite"
+      aria-atomic="true"
+      hidden
+    >
+      <div class="form-toast-inner">
+        <span id="form-toast-message" data-lang="form-toast-message"
+          >Mensaje enviado.</span
+        >
+        <button
+          id="form-toast-close"
+          type="button"
+          class="form-toast-close hover-trigger"
+          data-lang="form-toast-close"
+          aria-label="Cerrar"
+        >
+          Cerrar
+        </button>
+      </div>
+    </div>
     <!-- Scripts -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
@@ -464,6 +595,8 @@
           "about-h2": "HISTORIAS EN<br />MOVIMIENTO",
           "about-body":
             "Hola, soy Maria. Diseñadora visual e ilustradora, ubicada en Madrid. Empece a hacer lo que hago porque amo contar historias. Este sitio esta hecho para explorar, jugar, y que puedas descubrir mi trabajo, ¿te animas a jugar con el?",
+          "about-download-cv": "Descargar CV",
+          "about-download-portfolio": "Descargar Portfolio (PDF)",
           "archive-title": "ARCHIVO<span style='color: var(--accent)'>.</span>",
           "salir-playground":
             "<i class='fa-solid fa-arrow-left me-2'></i> SALIR",
@@ -473,6 +606,7 @@
           client: "CLIENTE",
           services: "SERVICIOS",
           "detail-services": "Ilustración, Dirección de Arte",
+          "tracklist-hint": "Flechas &larr; &rarr; para cambiar pista",
           "lets-talk": "HABLEMOS",
           "start-project":
             "<span>INICIAR PROYECTO</span><i class='fa-solid fa-chevron-down'></i>",
@@ -481,7 +615,10 @@
           message: "MENSAJE",
           "idea-info": "Cuéntame sobre tu idea...",
           "send-message": "ENVIAR",
-          "copyright-rights": "&copy; 2025 TEA. Todos los derechos reservados.",
+          "copyright-rights":
+            "&copy; 2026 Maria Ignacia Dafonte Mas. Todos los derechos reservados.",
+          "form-toast-message": "Mensaje enviado.",
+          "form-toast-close": "Cerrar",
         },
         en: {
           "playground-link": "PLAYGROUND",
@@ -495,6 +632,8 @@
           "about-h2": "STORIES IN<br />MOTION",
           "about-body":
             "Hi, I'm Maria. Visual designer and illustrator based in Madrid. I started doing what I do because I love telling stories. This site is made to explore, play, and let you discover my work. Do you want to play with it?",
+          "about-download-cv": "Download CV",
+          "about-download-portfolio": "Download Portfolio (PDF)",
           "archive-title": "ARCHIVE<span style='color: var(--accent)'>.</span>",
           "salir-playground":
             "<i class='fa-solid fa-arrow-left me-2'></i> EXIT",
@@ -504,6 +643,7 @@
           client: "CLIENT",
           services: "SERVICES",
           "detail-services": "Illustration, Art Direction",
+          "tracklist-hint": "Use &larr; &rarr; to change track",
           "lets-talk": "LET'S TALK",
           "start-project":
             "<span>START PROJECT</span><i class='fa-solid fa-chevron-down'></i>",
@@ -512,7 +652,10 @@
           message: "MESSAGE",
           "idea-info": "Tell me about your idea...",
           "send-message": "SEND",
-          "copyright-rights": "&copy; 2025 TEA. All rights reserved.",
+          "copyright-rights":
+            "&copy; 2026 Maria Ignacia Dafonte Mas. All rights reserved.",
+          "form-toast-message": "Message sent.",
+          "form-toast-close": "Close",
         },
         nl: {
           "playground-link": "PLAYGROUND",
@@ -526,6 +669,8 @@
           "about-h2": "VERHALEN IN<br />BEWEGING",
           "about-body":
             "Hoi, ik ben Maria. Visueel ontwerper en illustrator, gevestigd in Madrid. Ik ben begonnen met wat ik doe omdat ik van verhalen vertellen houd. Deze site is gemaakt om te ontdekken, te spelen en mijn werk te leren kennen. Doe je mee?",
+          "about-download-cv": "Download CV",
+          "about-download-portfolio": "Download portfolio (PDF)",
           "archive-title": "ARCHIEF<span style='color: var(--accent)'>.</span>",
           "salir-playground":
             "<i class='fa-solid fa-arrow-left me-2'></i> TERUG",
@@ -535,6 +680,7 @@
           client: "KLANT",
           services: "DIENSTEN",
           "detail-services": "Illustratie, Art Direction",
+          "tracklist-hint": "Gebruik &larr; &rarr; om van nummer te wisselen",
           "lets-talk": "LATEN WE PRATEN",
           "start-project":
             "<span>START PROJECT</span><i class='fa-solid fa-chevron-down'></i>",
@@ -543,7 +689,10 @@
           message: "BERICHT",
           "idea-info": "Vertel me over je idee...",
           "send-message": "VERZENDEN",
-          "copyright-rights": "&copy; 2025 TEA. Alle rechten voorbehouden.",
+          "copyright-rights":
+            "&copy; 2026 Maria Ignacia Dafonte Mas. Alle rechten voorbehouden.",
+          "form-toast-message": "Bericht verzonden.",
+          "form-toast-close": "Sluiten",
         },
       };
       const translations404 = {
@@ -565,14 +714,29 @@
       };
 
       let currentLang = "es";
+      const mailSubjects = {
+        es: "Propuesta de proyecto - Desde Portfolio",
+        en: "Project proposal - From Portfolio",
+        nl: "Projectvoorstel - Vanuit Portfolio",
+      };
 
       function toggleLangMenu() {
         document.getElementById("lang-widget").classList.toggle("active");
+      }
+      function updateMailtoSubject() {
+        const form = document.getElementById("contact-form");
+        if (!form) return;
+        const subject = mailSubjects[currentLang] || mailSubjects.es;
+        form.setAttribute(
+          "action",
+          `mailto:nachadafonte@gmail.com?subject=${encodeURIComponent(subject)}`
+        );
       }
 
       // Apply translations for the main index (uses `translations`)
       function setLanguage(lang) {
         currentLang = lang;
+        window.currentLang = lang;
 
         document.querySelectorAll(".lang-option").forEach((btn) => {
           btn.classList.remove("selected");
@@ -586,6 +750,7 @@
             el.innerHTML = translations[currentLang][key];
           }
         });
+        updateMailtoSubject();
 
         // Refresh gallery and project detail if those functions exist
         if (typeof window.renderArchive === "function") window.renderArchive();
