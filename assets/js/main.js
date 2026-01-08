@@ -58,7 +58,7 @@ Het project werd in juli 2025 gepresenteerd op het Sfinks Festival.`,
       en: "Programs used",
       nl: "Gebruikte programma's",
     },
-    services: {
+    programsUsed: {
       es: "Photoshop, illustrator, After Effects, Spark AR, HTML/CSS/JS",
       en: "Photoshop, Illustrator, After Effects, Spark AR, HTML/CSS/JS",
       nl: "Photoshop, Illustrator, After Effects, Spark AR, HTML/CSS/JS",
@@ -73,7 +73,19 @@ Het project werd in juli 2025 gepresenteerd op het Sfinks Festival.`,
       en: "UI Design, User Experience",
       nl: "UI Ontwerp, Gebruikerservaring",
     },
-    img: "https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?q=80&w=2845&auto=format&fit=crop",
+    img: "assets/images/mockup a-fin 1.jpg",
+    mediaLayout: "grid",
+    extraMediaLayout: "grid-4x2",
+    extraMedia: [
+      { type: "image", src: "assets/images/mockup a-fin 1.jpg" },
+      { type: "image", src: "assets/images/mockup a-fin 2.jpg" },
+      { type: "image", src: "assets/images/mockup a-fin 3.jpg" },
+      { type: "image", src: "assets/images/mockup a-fin 4.jpg" },
+      { type: "image", src: "assets/images/mockup a-fin5.jpg" },
+      { type: "image", src: "assets/images/mockup a-fin 6.jpg" },
+      { type: "image", src: "assets/images/mockup a-fin 7.jpg" },
+      { type: "image", src: "assets/images/mockup a-fin 8.jpg" },
+    ],
     desc: {
       es: "A-FIN A-FIN se define como un Cupido para los amantes de la música. Con un enfoque similar a Tinder, Bumble, y otras aplicaciones conocidas; A-FIN A-FIN cree en la afinidad romántica basada en el gusto musical. ¿Deslizar fotos? No, deslizar listas de reproducción. La aplicación/prototipo nos ofrece una experiencia táctil de varias funciones de la aplicación, tales como: un menú de sugerencias de planes, listas de reproducción compartidas con tu pareja, la oportunidad de hacer amigos en lugar de conexiones románticas en la aplicación, y más... Aquí encontrarás: fotos del prototipo de alta fidelidad y un enlace al prototipo/bocetos funcionales de baja fidelidad con notas incluidas.",
       en: "A-Fin A-Fin defines itself as a Cupid for music lovers. With an approach similar to Tinder, Bumble, another well known apps; A-Fin A-Fin believes in the romantic affinity based on their music taste. Swiping through pictures? Naah, swiping through playlists. The app/prototype offers us a touch and feel of various app’s features such as: a plan suggestion menu, shared playlists with your match, the chance to make friends instead of romantic connections in the app and so on... Here you’ll find: pictures of the high fidelity prototype and a link to the fully functional low prototype/wireframes with notes included",
@@ -85,7 +97,7 @@ Het project werd in juli 2025 gepresenteerd op het Sfinks Festival.`,
       en: "Programs used",
       nl: "Gebruikte programma's",
     },
-    services: "Figma",
+    programsUsed: "Figma",
   },
   {
     id: 3,
@@ -100,53 +112,112 @@ Het project werd in juli 2025 gepresenteerd op het Sfinks Festival.`,
       en: "Editorial Design",
       nl: "Redactioneel Ontwerp",
     },
-    img: "https://images.unsplash.com/photo-1549490349-8643362247b5?q=80&w=2787&auto=format&fit=crop",
+    img: "assets/images/fotos fanzine 20 1.jpeg",
+    mediaLayout: "grid",
+    extraMediaLayout: "grid",
+    extraMedia: [
+      { type: "image", src: "assets/images/fotos fanzine 20 1.jpeg" },
+      { type: "image", src: "assets/images/fotos fanzine 20 2.jpeg" },
+      { type: "image", src: "assets/images/fotos fanzine 3.jpeg" },
+    ],
     desc: {
       es: "20's Archive es un proyecto editorial dirigido como un fanzine basado en tipografía con poco o ningún gráfico. 20's Archive nace de la necesidad de saber qué hay en los primeros años de la adultez antes de convertirte tú mismo en uno. Lleno con los consejos y trucos de la comunidad, esta pequeña nube de citas está destinada a ayudar a navegar a nuestros lectores por buena música y pensamientos igualmente y reconfortantes de la comunidad que ya no tiene veinte años. Las imágenes usadas en el portfolio, fueron dadas por las personas que contribuyeron al proyecto.",
       en: "20’s Archive is an editorial project targeted as a typography based fanzine with little-to-no graphics. 20’s Archive is born from the necessity to know what’s in the first years of adulthood before you become one yourself.Filled with the comunity’s tips and tricks, this little quote cloud is meant to help navigate our readers through good music and both equally and comforting thoughts from the community who’s not 20 anymore. The pictures used in the portfolio, were given from the people who contributed to the project.",
       nl: "20's Archief is een redactioneel project gericht op een typografisch gebaseerd fanzine met weinig tot geen grafische elementen. 20's Archief is geboren uit de noodzaak om te weten wat er in de eerste jaren van de volwassenheid is voordat je zelf er één wordt. Vulde met tips en trucs van de community, is deze kleine quote cloud bedoeld om onze lezers te helpen navigeren door goede muziek en zowel gelijke als troostende gedachten van de community die niet meer twintig zijn. De afbeeldingen gebruikt in het portfolio, werden geleverd door de mensen die bijgedragen hebben aan het project.",
     },
-    client: "Moda S.A.",
+    client: {
+      es: "Autopublicado",
+      en: "Self-published",
+      nl: "Zelf uitgegeven",
+    },
     servicesLabel: {
       es: "Programas usados",
       en: "Programs used",
       nl: "Gebruikte programma's",
     },
-    services: "Vector",
+    programsUsed: "Illustrator",
   },
   {
     id: 4,
     title: {
-      es: "RETRATO LÍQUIDO",
-      en: "LIQUID PORTRAIT",
-      nl: "VLOEIBAAR PORTRET",
+      es: "Deslocado - Un fanzine sobre el desarraigo",
+      en: "Deslocado - A zine about missing home",
+      nl: "Deslocado - Een fanzine over het verlies van de thuis",
     },
-    year: "2022",
-    category: { es: "Experimental", en: "Experimental", nl: "Experimenteel" },
-    img: "https://images.unsplash.com/photo-1507643179173-617d67456fd8?q=80&w=2669&auto=format&fit=crop",
-    desc: "Fusión fotografía/digital.",
-    client: "Revista Arte",
+    year: "2025",
+    category: {
+      es: "Diseño Editorial",
+      en: "Editorial Design",
+      nl: "Redactioneel Ontwerp",
+    },
+    img: "assets/images/IMG_5896.jpg",
+    mediaLayout: "grid",
+    extraMediaLayout: "grid",
+    extraMedia: [
+      { type: "image", src: "assets/images/IMG_5896.jpg" },
+      { type: "image", src: "assets/images/IMG_5897.jpg" },
+      { type: "image", src: "assets/images/IMG_5898.jpg" },
+      { type: "image", src: "assets/images/IMG_5899.jpg" },
+    ],
+    desc: {
+      es: `Este proyecto editorial explora lo que significa crear un hogar en un lugar nuevo. Realizado como un collage de idiomas, mapas y recuerdos, "DESLOCAO" documenta mi tiempo en Amberes. Es una oda a la "familia que escogí", a los abrazos cálidos que definen el concepto de casa, y a la contradicción de querer irse y querer quedarse al mismo tiempo.
+
+Diseñado con una estética grunge en bicromía (azul/amarillo), mezclando texturas digitales, fotografía y tipografía experimental para capturar la energía caótica y emocional de la vida en el extranjero.`,
+      en: `This editorial project explores what it means to create a home in a new place. Made as a collage of languages, maps and memories, “DESLOCAO” documents my time in Antwerp. It is an ode to the “chosen family”, to the warm hugs that define the concept of home, and to the contradiction of wanting to leave and wanting to stay at the same time.
+
+Designed with a grunge aesthetic in duotone (blue/yellow), mixing digital textures, photography and experimental typography to capture the chaotic and emotional energy of life abroad.`,
+      nl: `Dit redactionele project onderzoekt wat het betekent om een thuis te creëren op een nieuwe plek. Gemaakt als een collage van talen, kaarten en herinneringen, documenteert “DESLOCAO” mijn tijd in Antwerpen. Het is een ode aan de “gekozen familie”, aan de warme knuffels die het concept van thuis definiëren, en aan de contradictie van willen vertrekken en tegelijkertijd willen blijven.
+
+Ontworpen met een grunge-esthetiek in duotone (blauw/geel), waarbij digitale texturen, fotografie en experimentele typografie worden gemixt om de chaotische en emotionele energie van het leven in het buitenland vast te leggen.`,
+    },
+    client: {
+      es: "Autopublicado",
+      en: "Self-published",
+      nl: "Zelf uitgegeven",
+    },
     servicesLabel: {
       es: "Servicios",
       en: "Services",
       nl: "Diensten",
     },
-    services: "Edición",
+    services: "Illustrator, Photoshop, Lightroom",
   },
   {
     id: 5,
-    title: { es: "SUEÑOS DE PAPEL", en: "PAPER DREAMS", nl: "PAPIERDROMEN" },
-    year: "2025",
-    category: { es: "Editorial", en: "Editorial", nl: "Redactioneel" },
+    title: { es: "Ilustraciones", en: "Illustrations", nl: "Illustraties" },
+    category: { es: "Ilustraciones", en: "Illustrations", nl: "Illustraties" },
     img: "https://images.unsplash.com/photo-1503023345310-bd7c1de61c7d?q=80&w=2564&auto=format&fit=crop",
+    mediaLayout: "collage",
+    detailMode: "gallery-only",
+    extraMedia: [
+      { type: "image", src: "assets/images/5.png" },
+      { type: "image", src: "assets/images/55.png" },
+      { type: "image", src: "assets/images/64.png" },
+      { type: "image", src: "assets/images/79.png" },
+      { type: "image", src: "assets/images/Artboard 1 copy.png" },
+      { type: "image", src: "assets/images/Artboard 1 copy 2.png" },
+      { type: "image", src: "assets/images/Artboard 1 copy 3.png" },
+      { type: "image", src: "assets/images/Artboard 1 copy 4.png" },
+      { type: "image", src: "assets/images/Artboard 1 copy 5.png" },
+      { type: "image", src: "assets/images/Artboard 1 copy 6.png" },
+      { type: "image", src: "assets/images/Artboard 1 copy 7.png" },
+      { type: "image", src: "assets/images/Artboard 1 copy 8.png" },
+      { type: "image", src: "assets/images/Cumpleaños Robi.jpg" },
+      {
+        type: "image",
+        src: "assets/images/Han Jisung Page Mobile Version.jpg",
+      },
+      { type: "image", src: "assets/images/Ilustración_sin_título 1.png" },
+      { type: "image", src: "assets/images/Mesa de trabajo 3-100.jpg" },
+    ],
     desc: "Colección de ilustraciones editoriales.",
     client: "Editorial XYZ",
     servicesLabel: {
-      es: "Servicios",
-      en: "Services",
-      nl: "Diensten",
+      es: "Programas usados",
+      en: "Programs used",
+      nl: "Gebruikte programma's",
     },
-    services: "Ilustración, Layout",
+    services: "Indesign, Photoshop, Illustrator",
   },
 ];
 
@@ -264,7 +335,19 @@ window.scheduleStickerRelayout = scheduleStickerRelayout;
 function positionStickerOnTeaA() {
   const container = document.querySelector(".sticker-container");
   const anchor = document.getElementById("tea-A");
-  if (!container || !anchor) return;
+  const hero = document.getElementById("hero");
+  if (!container || !anchor || !hero) return;
+  const isMobile = window.matchMedia("(max-width: 767px)").matches;
+  if (isMobile) {
+    container.style.removeProperty("left");
+    container.style.removeProperty("top");
+    container.style.removeProperty("right");
+    container.style.removeProperty("bottom");
+    container.style.removeProperty("position");
+    const baseEl = container.querySelector(".base");
+    if (baseEl) baseEl.style.removeProperty("transform");
+    return;
+  }
 
   const baseEl = container.querySelector(".base");
   const baseRect = (baseEl || container).getBoundingClientRect();
@@ -276,19 +359,20 @@ function positionStickerOnTeaA() {
   }
 
   const anchorRect = anchor.getBoundingClientRect();
+  const heroRect = hero.getBoundingClientRect();
   const styles = getComputedStyle(container);
   const offsetX =
     parseFloat(styles.getPropertyValue("--sticker-offset-x")) || 0;
   const offsetY =
     parseFloat(styles.getPropertyValue("--sticker-offset-y")) || 0;
-  const left = Math.round(anchorRect.right + offsetX);
-  const top = Math.round(anchorRect.bottom + offsetY);
-  const maxLeft = window.innerWidth - baseRect.width - 12;
-  const maxTop = window.innerHeight - baseRect.height - 12;
+  const left = Math.round(anchorRect.right - heroRect.left + offsetX);
+  const top = Math.round(anchorRect.bottom - heroRect.top + offsetY);
+  const maxLeft = heroRect.width - baseRect.width - 12;
+  const maxTop = heroRect.height - baseRect.height - 12;
   const safeLeft = Math.min(Math.max(left, 8), Math.max(8, maxLeft));
   const safeTop = Math.min(Math.max(top, 8), Math.max(8, maxTop));
 
-  container.style.setProperty("position", "fixed", "important");
+  container.style.setProperty("position", "absolute", "important");
   container.style.setProperty("left", safeLeft + "px", "important");
   container.style.setProperty("top", safeTop + "px", "important");
   container.style.setProperty("right", "auto", "important");
@@ -304,14 +388,6 @@ window.addEventListener("resize", () => {
   clearTimeout(window.__stickerResizeTimeout);
   window.__stickerResizeTimeout = setTimeout(positionStickerOnTeaA, 80);
 });
-window.addEventListener(
-  "scroll",
-  () => {
-    // reposition on scroll
-    positionStickerOnTeaA();
-  },
-  { passive: true }
-);
 
 function renderArchive() {
   const container = document.getElementById("archive-gallery-track");
@@ -320,6 +396,28 @@ function renderArchive() {
     .map((p) => {
       const title =
         typeof p.title === "object" ? p.title[lang] || p.title.es : p.title;
+      const isCollagePreview =
+        p.mediaLayout === "collage" &&
+        Array.isArray(p.extraMedia) &&
+        p.extraMedia.length > 0;
+      const collageItems = isCollagePreview
+        ? p.extraMedia
+            .filter((item) => item && item.type === "image" && item.src)
+            .slice(0, 12)
+        : [];
+      const previewMarkup = isCollagePreview
+        ? collageItems
+            .map((item, index) => {
+              const safeSrc = encodeURI(item.src);
+              return `<img src="${safeSrc}" class="gallery-collage-item gallery-collage-item-${
+                index + 1
+              }" alt="" aria-hidden="true" loading="lazy" decoding="async" />`;
+            })
+            .join("")
+        : `<img src="${encodeURI(p.img)}" alt="${title}">`;
+      const wrapperClass = isCollagePreview
+        ? "gallery-img-wrapper is-collage"
+        : "gallery-img-wrapper";
       return `
         <div
           class="gallery-item hover-trigger"
@@ -329,8 +427,8 @@ function renderArchive() {
           aria-haspopup="dialog"
           aria-label="${title}"
         >
-          <div class="gallery-img-wrapper">
-            <img src="${p.img}" alt="${title}">
+          <div class="${wrapperClass}">
+            ${previewMarkup}
           </div>
           <div class="mt-3 d-flex justify-content-between align-items-center">
             <h4 class="m-0" style="color: var(--text-main); font-size: 1.2rem;">${title}</h4>
@@ -611,7 +709,21 @@ function setupOverlayAccessibility() {
   document.addEventListener("keydown", (event) => {
     const overlay = document.getElementById("project-overlay");
     if (!overlay || !overlay.classList.contains("active")) return;
+    const viewer = document.getElementById("collage-viewer");
+    if (viewer && viewer.classList.contains("is-active")) {
+      if (event.key === "ArrowLeft") {
+        event.preventDefault();
+        stepViewer(-1);
+        return;
+      }
+      if (event.key === "ArrowRight") {
+        event.preventDefault();
+        stepViewer(1);
+        return;
+      }
+    }
     if (event.key === "Escape") {
+      if (closeCollageViewer()) return;
       closeProject();
       return;
     }
@@ -723,6 +835,13 @@ function setProjectMedia(p, title) {
   const imgEl = document.getElementById("detail-img");
   const embedEl = document.getElementById("detail-embed");
   if (!imgEl || !embedEl) return;
+  if (p.mediaLayout === "grid") {
+    embedEl.hidden = true;
+    embedEl.src = "";
+    imgEl.hidden = true;
+    if (title) embedEl.title = title;
+    return;
+  }
   if (p.embed) {
     embedEl.src = p.embed;
     embedEl.hidden = false;
@@ -731,7 +850,7 @@ function setProjectMedia(p, title) {
     embedEl.hidden = true;
     embedEl.src = "";
     imgEl.hidden = false;
-    if (p.img) imgEl.src = p.img;
+    if (p.img) imgEl.src = encodeURI(p.img);
   }
   if (title) {
     imgEl.alt = title;
@@ -752,19 +871,333 @@ function setEmbedCaption(p, lang) {
 }
 function updateProjectMediaLayout(p) {
   const mediaWrap = document.getElementById("project-media");
+  const primaryMedia = document.getElementById("project-primary-media");
+  const extraMedia = document.getElementById("detail-extra-media");
   if (!mediaWrap) return;
+  const isCollage = p.mediaLayout === "collage";
+  const isGridLayout = p.mediaLayout === "grid";
+  const isGrid =
+    typeof p.extraMediaLayout === "string" &&
+    p.extraMediaLayout.startsWith("grid");
+  const isGrid4x2 = p.extraMediaLayout === "grid-4x2";
   const hasEmbed = Boolean(p.embed);
   const hasExtra = Array.isArray(p.extraMedia) && p.extraMedia.length > 0;
   mediaWrap.classList.toggle("is-split", hasEmbed && hasExtra);
+  if (primaryMedia) primaryMedia.hidden = Boolean(isCollage || isGridLayout);
+  if (extraMedia) {
+    extraMedia.classList.toggle("is-collage", isCollage);
+    extraMedia.classList.toggle("is-flex-grid", hasExtra && isGrid);
+    extraMedia.classList.toggle("is-grid-4x2", hasExtra && isGrid4x2);
+  }
+}
+const viewerState = {
+  items: [],
+  index: 0,
+};
+function ensureCollageViewer() {
+  const overlay = document.getElementById("project-overlay");
+  if (!overlay) return null;
+  let viewer = document.getElementById("collage-viewer");
+  if (viewer) return viewer;
+  viewer = document.createElement("div");
+  viewer.id = "collage-viewer";
+  viewer.className = "collage-viewer";
+  viewer.setAttribute("role", "dialog");
+  viewer.setAttribute("aria-modal", "true");
+  viewer.setAttribute("aria-hidden", "true");
+  viewer.innerHTML = `
+    <div class="collage-viewer-backdrop" data-collage-close></div>
+    <button
+      type="button"
+      class="collage-viewer-nav collage-viewer-prev hover-trigger"
+      data-viewer-prev
+      aria-label="Anterior"
+    >
+      <i class="fa-solid fa-chevron-left"></i>
+    </button>
+    <figure class="collage-viewer-figure">
+      <img id="collage-viewer-img" alt="" />
+      <button
+        type="button"
+        class="collage-viewer-close hover-trigger"
+        data-collage-close
+        aria-label="Cerrar"
+      >
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+    </figure>
+    <button
+      type="button"
+      class="collage-viewer-nav collage-viewer-next hover-trigger"
+      data-viewer-next
+      aria-label="Siguiente"
+    >
+      <i class="fa-solid fa-chevron-right"></i>
+    </button>
+    <div class="collage-viewer-indicator" data-viewer-indicator></div>
+  `;
+  overlay.appendChild(viewer);
+  viewer.addEventListener("click", (event) => {
+    const target = event.target;
+    if (target && target.closest("[data-collage-close]")) {
+      closeCollageViewer();
+      return;
+    }
+    if (target && target.closest("[data-viewer-prev]")) {
+      stepViewer(-1);
+      return;
+    }
+    if (target && target.closest("[data-viewer-next]")) {
+      stepViewer(1);
+    }
+  });
+  return viewer;
+}
+function updateViewerUI() {
+  const viewer = ensureCollageViewer();
+  if (!viewer) return;
+  const { items, index } = viewerState;
+  const img = viewer.querySelector("#collage-viewer-img");
+  const indicator = viewer.querySelector("[data-viewer-indicator]");
+  const prevBtn = viewer.querySelector("[data-viewer-prev]");
+  const nextBtn = viewer.querySelector("[data-viewer-next]");
+  if (!items.length) return;
+  const current = items[index];
+  if (img) {
+    img.src = current.src;
+    img.alt = current.alt || "";
+  }
+  if (indicator) {
+    if (items.length <= 1) {
+      indicator.textContent = "";
+      indicator.classList.add("is-hidden");
+    } else {
+      indicator.textContent = `${index + 1} / ${items.length}`;
+      indicator.classList.remove("is-hidden");
+    }
+  }
+  const canPrev = index > 0;
+  const canNext = index < items.length - 1;
+  if (prevBtn) prevBtn.disabled = !canPrev;
+  if (nextBtn) nextBtn.disabled = !canNext;
+}
+function openMediaViewer(items, startIndex) {
+  const viewer = ensureCollageViewer();
+  if (!viewer || !items.length) return;
+  viewerState.items = items;
+  viewerState.index = Math.min(
+    Math.max(startIndex, 0),
+    Math.max(items.length - 1, 0)
+  );
+  updateViewerUI();
+  viewer.classList.add("is-active");
+  viewer.setAttribute("aria-hidden", "false");
+}
+function openCollageViewer(src, altText) {
+  openMediaViewer([{ src, alt: altText || "" }], 0);
+}
+function stepViewer(direction) {
+  const { items, index } = viewerState;
+  if (!items.length || items.length === 1) return;
+  const nextIndex = index + direction;
+  if (nextIndex < 0 || nextIndex > items.length - 1) return;
+  viewerState.index = nextIndex;
+  updateViewerUI();
+}
+function collectViewerItems(container, selector, srcKey, altKey) {
+  const nodes = Array.from(container.querySelectorAll(selector));
+  const items = nodes
+    .map((node) => ({
+      src: node.dataset[srcKey] || "",
+      alt: node.dataset[altKey] || node.getAttribute("alt") || "",
+    }))
+    .filter((item) => Boolean(item.src));
+  return { nodes, items };
+}
+function openViewerFromContainer(container, selector, srcKey, altKey, target) {
+  const { nodes, items } = collectViewerItems(container, selector, srcKey, altKey);
+  if (!items.length) return;
+  const index = Math.max(nodes.indexOf(target), 0);
+  openMediaViewer(items, index);
+}
+function openCollageViewerFromItem(container, item) {
+  if (!container || !item) return;
+  openViewerFromContainer(
+    container,
+    "[data-collage-src]",
+    "collageSrc",
+    "collageAlt",
+    item
+  );
+}
+function openExtraViewerFromItem(container, item) {
+  if (!container || !item) return;
+  openViewerFromContainer(
+    container,
+    "[data-extra-src]",
+    "extraSrc",
+    "extraAlt",
+    item
+  );
+}
+function closeCollageViewer() {
+  const viewer = document.getElementById("collage-viewer");
+  if (!viewer || !viewer.classList.contains("is-active")) return false;
+  const img = viewer.querySelector("#collage-viewer-img");
+  if (img) {
+    img.src = "";
+    img.alt = "";
+  }
+  viewerState.items = [];
+  viewerState.index = 0;
+  viewer.classList.remove("is-active");
+  viewer.setAttribute("aria-hidden", "true");
+  return true;
+}
+function setupCollageInteractions(container) {
+  if (!container || container.__collageInit) return;
+  container.__collageInit = true;
+  const dragState = {
+    active: false,
+    moved: false,
+    startX: 0,
+    startY: 0,
+    startLeft: 0,
+    startTop: 0,
+    pointerId: null,
+    target: null,
+  };
+  const dragThreshold = 6;
+
+  container.addEventListener("pointerdown", (event) => {
+    const target = event.target;
+    if (!target || !target.closest) return;
+    const item = target.closest("[data-collage-src]");
+    if (!item) return;
+    dragState.active = true;
+    dragState.moved = false;
+    dragState.pointerId = event.pointerId;
+    dragState.target = item;
+    dragState.startX = event.clientX;
+    dragState.startY = event.clientY;
+    const containerRect = container.getBoundingClientRect();
+    const itemRect = item.getBoundingClientRect();
+    dragState.startLeft = itemRect.left - containerRect.left;
+    dragState.startTop = itemRect.top - containerRect.top;
+    item.style.left = `${dragState.startLeft}px`;
+    item.style.top = `${dragState.startTop}px`;
+    item.style.right = "auto";
+    item.style.bottom = "auto";
+    item.setPointerCapture?.(event.pointerId);
+    item.classList.add("is-dragging");
+    event.preventDefault();
+  });
+
+  container.addEventListener("pointermove", (event) => {
+    if (!dragState.active || event.pointerId !== dragState.pointerId) return;
+    const dx = event.clientX - dragState.startX;
+    const dy = event.clientY - dragState.startY;
+    if (!dragState.moved) {
+      if (Math.hypot(dx, dy) < dragThreshold) return;
+      dragState.moved = true;
+    }
+    const item = dragState.target;
+    if (!item) return;
+    const containerRect = container.getBoundingClientRect();
+    const itemRect = item.getBoundingClientRect();
+    let nextLeft = dragState.startLeft + dx;
+    let nextTop = dragState.startTop + dy;
+    const maxLeft = containerRect.width - itemRect.width;
+    const maxTop = containerRect.height - itemRect.height;
+    nextLeft = Math.min(Math.max(nextLeft, 0), Math.max(0, maxLeft));
+    nextTop = Math.min(Math.max(nextTop, 0), Math.max(0, maxTop));
+    item.style.left = `${nextLeft}px`;
+    item.style.top = `${nextTop}px`;
+    event.preventDefault();
+  });
+
+  const endDrag = (event) => {
+    if (!dragState.active || event.pointerId !== dragState.pointerId) return;
+    const item = dragState.target;
+    if (item) {
+      item.releasePointerCapture?.(event.pointerId);
+      item.classList.remove("is-dragging");
+    }
+    const shouldOpen = !dragState.moved;
+    dragState.active = false;
+    dragState.moved = false;
+    dragState.pointerId = null;
+    dragState.target = null;
+    if (shouldOpen && item) openCollageViewerFromItem(container, item);
+  };
+
+  container.addEventListener("pointerup", endDrag);
+  container.addEventListener("pointercancel", endDrag);
+
+  container.addEventListener("keydown", (event) => {
+    if (event.key !== "Enter" && event.key !== " ") return;
+    const target = event.target;
+    if (!target || !target.closest) return;
+    const item = target.closest("[data-collage-src]");
+    if (!item) return;
+    event.preventDefault();
+    openCollageViewerFromItem(container, item);
+  });
+}
+function setupExtraMediaViewer(container) {
+  if (!container || container.__extraViewerInit) return;
+  container.__extraViewerInit = true;
+
+  container.addEventListener("click", (event) => {
+    const target = event.target;
+    if (!target || !target.closest) return;
+    const item = target.closest("[data-extra-src]");
+    if (!item) return;
+    openExtraViewerFromItem(container, item);
+  });
+
+  container.addEventListener("keydown", (event) => {
+    if (event.key !== "Enter" && event.key !== " ") return;
+    const target = event.target;
+    if (!target || !target.closest) return;
+    const item = target.closest("[data-extra-src]");
+    if (!item) return;
+    event.preventDefault();
+    openExtraViewerFromItem(container, item);
+  });
 }
 function renderExtraMedia(p, title, lang) {
   const container = document.getElementById("detail-extra-media");
   if (!container) return;
   const items = Array.isArray(p.extraMedia) ? p.extraMedia : [];
+  const isCollage = p.mediaLayout === "collage";
+  const isGrid =
+    typeof p.extraMediaLayout === "string" &&
+    p.extraMediaLayout.startsWith("grid");
+  const isGrid4x2 = p.extraMediaLayout === "grid-4x2";
+  container.classList.toggle("is-flex-grid", items.length > 0 && isGrid);
+  container.classList.toggle("is-grid-4x2", items.length > 0 && isGrid4x2);
   if (!items.length) {
     container.innerHTML = "";
     container.hidden = true;
     updateProjectMediaLayout(p);
+    return;
+  }
+  if (isCollage) {
+    const markup = items
+      .map((item, index) => {
+        if (!item || item.type !== "image" || !item.src) return "";
+        const alt =
+          item.alt || `${title || "Project"} gallery image ${index + 1}`;
+        const className = `collage-item collage-item-${index + 1}`;
+        const safeSrc = encodeURI(item.src);
+        return `<img class="${className}" src="${safeSrc}" alt="${alt}" loading="lazy" decoding="async" data-collage-src="${safeSrc}" data-collage-alt="${alt}" role="button" tabindex="0" />`;
+      })
+      .join("");
+    container.innerHTML = markup;
+    container.hidden = false;
+    updateProjectMediaLayout(p);
+    setupCollageInteractions(container);
     return;
   }
   const markup = items
@@ -772,9 +1205,13 @@ function renderExtraMedia(p, title, lang) {
       if (!item || item.type !== "image" || !item.src) return "";
       const caption = getLocalizedValue(item.caption, lang);
       const alt = caption || title || "Project image";
+      const safeSrc = encodeURI(item.src);
+      const viewerAttrs = isGrid
+        ? `data-extra-src="${safeSrc}" data-extra-alt="${alt}" role="button" tabindex="0"`
+        : "";
       return `
         <figure class="project-extra-item">
-          <img src="${item.src}" alt="${alt}" loading="lazy" />
+          <img src="${safeSrc}" alt="${alt}" loading="lazy" decoding="async" ${viewerAttrs} />
           ${caption ? `<figcaption>${caption}</figcaption>` : ""}
         </figure>
       `;
@@ -783,6 +1220,7 @@ function renderExtraMedia(p, title, lang) {
   container.innerHTML = markup;
   container.hidden = false;
   updateProjectMediaLayout(p);
+  if (isGrid) setupExtraMediaViewer(container);
 }
 function setProjectDetails(p) {
   const lang = window.currentLang || "es";
@@ -794,8 +1232,13 @@ function setProjectDetails(p) {
       : p.category;
   const desc = getLocalizedValue(p.desc, lang);
   const client = getLocalizedValue(p.client, lang);
-  const services = getLocalizedValue(p.services, lang);
+  const services = getLocalizedValue(
+    p.services != null ? p.services : p.programsUsed,
+    lang
+  );
   const servicesLabel = getLocalizedValue(p.servicesLabel, lang);
+  const detailMode = p.detailMode || "full";
+  const isGalleryOnly = detailMode === "gallery-only";
 
   const titleEl = document.getElementById("detail-title");
   if (titleEl) titleEl.innerText = title || "";
@@ -813,6 +1256,14 @@ function setProjectDetails(p) {
   if (servicesEl) servicesEl.innerText = services || "";
   const yearEl = document.getElementById("detail-year");
   if (yearEl) yearEl.innerText = p.year || "";
+  if (yearEl) yearEl.hidden = isGalleryOnly;
+  if (catEl) catEl.hidden = isGalleryOnly;
+  const detailsWrap = document.getElementById("project-details");
+  if (detailsWrap) detailsWrap.hidden = isGalleryOnly;
+  const headerWrap = document.getElementById("project-header");
+  if (headerWrap) headerWrap.classList.toggle("gallery-only", isGalleryOnly);
+  const overlay = document.getElementById("project-overlay");
+  if (overlay) overlay.classList.toggle("gallery-only", isGalleryOnly);
 
   setProjectMedia(p, title);
   setEmbedCaption(p, lang);
@@ -843,8 +1294,10 @@ function closeProject() {
   const overlay = document.getElementById("project-overlay");
   if (overlay) {
     overlay.classList.remove("active");
+    overlay.classList.remove("gallery-only");
     overlay.setAttribute("aria-hidden", "true");
   }
+  closeCollageViewer();
   lenis.start();
   document.body.style.overflow = "";
   if (window.currentOpenProjectId === 1) stopCameraAccess();
