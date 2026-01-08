@@ -586,6 +586,34 @@ function setupContactFormFeedback() {
   const closeBtn = document.getElementById("form-toast-close");
   if (!form || !toast) return;
 
+  const mailLabels = {
+    es: { name: "Nombre", email: "Email", message: "Mensaje" },
+    en: { name: "Name", email: "Email", message: "Message" },
+    nl: { name: "Naam", email: "E-mail", message: "Bericht" },
+  };
+
+  const buildMailBody = () => {
+    const lang = window.currentLang || "es";
+    const labels = mailLabels[lang] || mailLabels.es;
+    const name = form.elements.name ? form.elements.name.value.trim() : "";
+    const email = form.elements.email ? form.elements.email.value.trim() : "";
+    const message = form.elements.message
+      ? form.elements.message.value.trim()
+      : "";
+    return `${labels.name}: ${name}\n${labels.email}: ${email}\n${labels.message}:\n${message}`;
+  };
+
+  const buildMailtoHref = () => {
+    const action =
+      form.getAttribute("action") || "mailto:nachadafonte@gmail.com";
+    const [base, query] = action.split("?");
+    const params = new URLSearchParams(query || "");
+    const body = buildMailBody();
+    if (body) params.set("body", body);
+    const queryString = params.toString();
+    return queryString ? `${base}?${queryString}` : base;
+  };
+
   const hideToast = () => {
     toast.classList.remove("show");
     toast.hidden = true;
@@ -597,7 +625,10 @@ function setupContactFormFeedback() {
     toast.__hideTimeout = setTimeout(hideToast, 4500);
   };
 
-  form.addEventListener("submit", () => {
+  form.addEventListener("submit", (event) => {
+    event.preventDefault();
+    const mailtoHref = buildMailtoHref();
+    window.location.href = mailtoHref;
     showToast();
   });
   if (closeBtn) closeBtn.addEventListener("click", hideToast);

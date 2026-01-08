@@ -419,6 +419,18 @@ section {
   padding-bottom: 10vh;
 }
 
+/* Improve contrast for About download buttons in dark mode */
+body.dark-mode #about .btn-outline-dark {
+  color: var(--text-main);
+  border-color: var(--text-main);
+}
+body.dark-mode #about .btn-outline-dark:hover,
+body.dark-mode #about .btn-outline-dark:focus-visible {
+  background-color: var(--text-main);
+  color: var(--bg-color);
+  border-color: var(--text-main);
+}
+
 .sticker-container {
   position: absolute;
   top: 50%;
