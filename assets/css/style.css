@@ -538,6 +538,8 @@ body.dark-mode #about .btn-outline-dark:focus-visible {
   padding: 2rem 0;
   pointer-events: auto; /* Reactiva el scroll horizontal dentro de la sección */
   cursor: grab;
+  scroll-snap-type: x mandatory;
+  scroll-padding: 1.5rem;
 }
 
 .gallery-track {
@@ -745,14 +747,12 @@ footer {
   }
   /* Contenedor principal del personaje */
   .sticker-container {
-    position: absolute; /* Para que flote sobre/al lado del texto */
-    top: 50%; /* Centrado verticalmente */
-    right: 10%; /* A un 10% del borde derecho de la pantalla */
-
-    width: 350px; /* Tamaño del personaje (ajústalo a tu gusto) */
-    height: auto; /* Mantiene la proporción */
-    z-index: 40; /* Asegura que esté por encima del texto del hero */
-    pointer-events: none; /* Opcional: para que puedas hacer click en cosas que estén debajo */
+    width: min(60vw, 220px);
+    --sticker-offset-x: -90px;
+    --sticker-offset-y: -70px;
+    --eyes-x: 95px;
+    --eyes-y: 40px;
+    --eyes-width: 55%;
   }
 
   /* IMPORTANTE: Asegúrate de que la sección HERO (donde está el texto) tenga position: relative */
@@ -799,6 +799,12 @@ footer {
   }
   #about {
     padding-top: 15vh;
+  }
+}
+
+@media (pointer: coarse) {
+  .swipe-gallery-container {
+    touch-action: pan-x;
   }
 }
 .hover-trigger {

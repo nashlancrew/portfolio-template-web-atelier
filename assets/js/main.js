@@ -53,38 +53,65 @@ Het project werd in juli 2025 gepresenteerd op het Sfinks Festival.`,
       en: "Handicap International Belgium",
       nl: "Handicap International België",
     },
+    servicesLabel: {
+      es: "Programas usados",
+      en: "Programs used",
+      nl: "Gebruikte programma's",
+    },
     services: {
-      es: "Diseño de UX|UI, Programacion e Ilustración Digital",
-      en: "UX|UI Design, Programming and Digital Illustration",
-      nl: "UX|UI Ontwerp, Programmeren en Digitale Illustratie",
+      es: "Photoshop, illustrator, After Effects, Spark AR, HTML/CSS/JS",
+      en: "Photoshop, Illustrator, After Effects, Spark AR, HTML/CSS/JS",
+      nl: "Photoshop, Illustrator, After Effects, Spark AR, HTML/CSS/JS",
     },
   },
   {
     id: 2,
-    title: { es: "MEMORIA AZUL", en: "BLUE MEMORY", nl: "BLAUWE HERINNERING" },
-    year: "2023",
+    title: { es: "A-FIN A-FIN", en: "A-FIN A-FIN", nl: "A-FIN A-FIN" },
+    year: "2024",
     category: {
-      es: "Ilustración Digital",
-      en: "Digital Illustration",
-      nl: "Digitale Illustratie",
+      es: "Diseño de Interfaz, Experiencia de Usuario",
+      en: "UI Design, User Experience",
+      nl: "UI Ontwerp, Gebruikerservaring",
     },
     img: "https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?q=80&w=2845&auto=format&fit=crop",
-    desc: "Exploración cromática.",
+    desc: {
+      es: "A-FIN A-FIN se define como un Cupido para los amantes de la música. Con un enfoque similar a Tinder, Bumble, y otras aplicaciones conocidas; A-FIN A-FIN cree en la afinidad romántica basada en el gusto musical. ¿Deslizar fotos? No, deslizar listas de reproducción. La aplicación/prototipo nos ofrece una experiencia táctil de varias funciones de la aplicación, tales como: un menú de sugerencias de planes, listas de reproducción compartidas con tu pareja, la oportunidad de hacer amigos en lugar de conexiones románticas en la aplicación, y más... Aquí encontrarás: fotos del prototipo de alta fidelidad y un enlace al prototipo/bocetos funcionales de baja fidelidad con notas incluidas.",
+      en: "A-Fin A-Fin defines itself as a Cupid for music lovers. With an approach similar to Tinder, Bumble, another well known apps; A-Fin A-Fin believes in the romantic affinity based on their music taste. Swiping through pictures? Naah, swiping through playlists. The app/prototype offers us a touch and feel of various app’s features such as: a plan suggestion menu, shared playlists with your match, the chance to make friends instead of romantic connections in the app and so on... Here you’ll find: pictures of the high fidelity prototype and a link to the fully functional low prototype/wireframes with notes included",
+      nl: "A-Fin A-Fin definieert zichzelf als een Cupid voor muziekliefhebbers. Met een aanpak die lijkt op Tinder, Bumble, en andere bekende apps; gelooft A-Fin A-Fin in romantische affiniteit op basis van hun muzieksmaak. Swipen door foto's? Nee, swipen door afspeellijsten. De app/prototype biedt ons een gevoel van verschillende functies van de app, zoals: een planningssuggestiemenu, gedeelde afspeellijsten met je match, de kans om vrienden te maken in plaats van romantische connecties in de app, enzovoort... Hier vind je: foto's van het high-fidelity prototype en een link naar het volledig functionele low-prototype/wireframes met notities inbegrepen.",
+    },
     client: "Personal",
-    services: "Procreate",
+    servicesLabel: {
+      es: "Programas usados",
+      en: "Programs used",
+      nl: "Gebruikte programma's",
+    },
+    services: "Figma",
   },
   {
     id: 3,
-    title: { es: "BOTÁNICA", en: "BOTANICA", nl: "BOTANICA" },
+    title: {
+      es: "20's Archive: Guia para sobrevivir a los 20",
+      en: "20's Archive: Guide to Survive Your 20s",
+      nl: "20's Archief: Gids om je twintig te overleven",
+    },
     year: "2023",
     category: {
-      es: "Diseño de Patrones",
-      en: "Pattern Design",
-      nl: "Patroonontwerp",
+      es: "Diseño Editorial",
+      en: "Editorial Design",
+      nl: "Redactioneel Ontwerp",
     },
     img: "https://images.unsplash.com/photo-1549490349-8643362247b5?q=80&w=2787&auto=format&fit=crop",
-    desc: "Patrones tropicales.",
+    desc: {
+      es: "20's Archive es un proyecto editorial dirigido como un fanzine basado en tipografía con poco o ningún gráfico. 20's Archive nace de la necesidad de saber qué hay en los primeros años de la adultez antes de convertirte tú mismo en uno. Lleno con los consejos y trucos de la comunidad, esta pequeña nube de citas está destinada a ayudar a navegar a nuestros lectores por buena música y pensamientos igualmente y reconfortantes de la comunidad que ya no tiene veinte años. Las imágenes usadas en el portfolio, fueron dadas por las personas que contribuyeron al proyecto.",
+      en: "20’s Archive is an editorial project targeted as a typography based fanzine with little-to-no graphics. 20’s Archive is born from the necessity to know what’s in the first years of adulthood before you become one yourself.Filled with the comunity’s tips and tricks, this little quote cloud is meant to help navigate our readers through good music and both equally and comforting thoughts from the community who’s not 20 anymore. The pictures used in the portfolio, were given from the people who contributed to the project.",
+      nl: "20's Archief is een redactioneel project gericht op een typografisch gebaseerd fanzine met weinig tot geen grafische elementen. 20's Archief is geboren uit de noodzaak om te weten wat er in de eerste jaren van de volwassenheid is voordat je zelf er één wordt. Vulde met tips en trucs van de community, is deze kleine quote cloud bedoeld om onze lezers te helpen navigeren door goede muziek en zowel gelijke als troostende gedachten van de community die niet meer twintig zijn. De afbeeldingen gebruikt in het portfolio, werden geleverd door de mensen die bijgedragen hebben aan het project.",
+    },
     client: "Moda S.A.",
+    servicesLabel: {
+      es: "Programas usados",
+      en: "Programs used",
+      nl: "Gebruikte programma's",
+    },
     services: "Vector",
   },
   {
@@ -99,6 +126,11 @@ Het project werd in juli 2025 gepresenteerd op het Sfinks Festival.`,
     img: "https://images.unsplash.com/photo-1507643179173-617d67456fd8?q=80&w=2669&auto=format&fit=crop",
     desc: "Fusión fotografía/digital.",
     client: "Revista Arte",
+    servicesLabel: {
+      es: "Servicios",
+      en: "Services",
+      nl: "Diensten",
+    },
     services: "Edición",
   },
   {
@@ -109,6 +141,11 @@ Het project werd in juli 2025 gepresenteerd op het Sfinks Festival.`,
     img: "https://images.unsplash.com/photo-1503023345310-bd7c1de61c7d?q=80&w=2564&auto=format&fit=crop",
     desc: "Colección de ilustraciones editoriales.",
     client: "Editorial XYZ",
+    servicesLabel: {
+      es: "Servicios",
+      en: "Services",
+      nl: "Diensten",
+    },
     services: "Ilustración, Layout",
   },
 ];
@@ -246,10 +283,14 @@ function positionStickerOnTeaA() {
     parseFloat(styles.getPropertyValue("--sticker-offset-y")) || 0;
   const left = Math.round(anchorRect.right + offsetX);
   const top = Math.round(anchorRect.bottom + offsetY);
+  const maxLeft = window.innerWidth - baseRect.width - 12;
+  const maxTop = window.innerHeight - baseRect.height - 12;
+  const safeLeft = Math.min(Math.max(left, 8), Math.max(8, maxLeft));
+  const safeTop = Math.min(Math.max(top, 8), Math.max(8, maxTop));
 
   container.style.setProperty("position", "fixed", "important");
-  container.style.setProperty("left", left + "px", "important");
-  container.style.setProperty("top", top + "px", "important");
+  container.style.setProperty("left", safeLeft + "px", "important");
+  container.style.setProperty("top", safeTop + "px", "important");
   container.style.setProperty("right", "auto", "important");
   container.style.setProperty("bottom", "auto", "important");
 
@@ -327,12 +368,15 @@ function setupGalleryScroll() {
 
   let isDown = false;
   let isDragging = false;
+  let lastPointerType = null;
   let startX;
   let startY;
   let scrollLeft;
   const dragThreshold = 6;
 
   outer.addEventListener("pointerdown", (e) => {
+    lastPointerType = e.pointerType || "mouse";
+    if (e.pointerType === "touch") return;
     isDown = true;
     isDragging = false;
     outer.setPointerCapture(e.pointerId);
@@ -359,6 +403,7 @@ function setupGalleryScroll() {
   });
 
   outer.addEventListener("pointerup", (e) => {
+    if (e.pointerType === "touch") return;
     isDown = false;
     outer.releasePointerCapture && outer.releasePointerCapture(e.pointerId);
     outer.classList.remove("dragging");
@@ -372,6 +417,14 @@ function setupGalleryScroll() {
       }
     }
     isDragging = false;
+  });
+
+  outer.addEventListener("click", (e) => {
+    if (lastPointerType && lastPointerType !== "touch") return;
+    const item = e.target.closest(".gallery-item");
+    if (!item) return;
+    const id = Number(item.dataset.projectId);
+    if (!Number.isNaN(id)) openProject(id);
   });
 
   outer.addEventListener("pointercancel", () => {
@@ -604,14 +657,16 @@ function setupContactFormFeedback() {
   };
 
   const buildMailtoHref = () => {
-    const action =
-      form.getAttribute("action") || "mailto:nachadafonte@gmail.com";
-    const [base, query] = action.split("?");
-    const params = new URLSearchParams(query || "");
+    const recipient = form.dataset.mailto || "nachadafonte@gmail.com";
+    const subject = form.dataset.mailSubject || "";
+    const params = new URLSearchParams();
+    if (subject) params.set("subject", subject);
     const body = buildMailBody();
     if (body) params.set("body", body);
     const queryString = params.toString();
-    return queryString ? `${base}?${queryString}` : base;
+    return queryString
+      ? `mailto:${recipient}?${queryString}`
+      : `mailto:${recipient}`;
   };
 
   const hideToast = () => {
@@ -627,6 +682,10 @@ function setupContactFormFeedback() {
 
   form.addEventListener("submit", (event) => {
     event.preventDefault();
+    if (!form.checkValidity()) {
+      form.reportValidity();
+      return;
+    }
     const mailtoHref = buildMailtoHref();
     window.location.href = mailtoHref;
     showToast();
@@ -736,6 +795,7 @@ function setProjectDetails(p) {
   const desc = getLocalizedValue(p.desc, lang);
   const client = getLocalizedValue(p.client, lang);
   const services = getLocalizedValue(p.services, lang);
+  const servicesLabel = getLocalizedValue(p.servicesLabel, lang);
 
   const titleEl = document.getElementById("detail-title");
   if (titleEl) titleEl.innerText = title || "";
@@ -745,6 +805,10 @@ function setProjectDetails(p) {
   if (descEl) descEl.innerText = desc || "";
   const clientEl = document.getElementById("detail-client");
   if (clientEl) clientEl.innerText = client || "";
+  const servicesLabelEl = document.getElementById("detail-services-label");
+  if (servicesLabelEl && servicesLabel) {
+    servicesLabelEl.innerText = servicesLabel;
+  }
   const servicesEl = document.getElementById("detail-services");
   if (servicesEl) servicesEl.innerText = services || "";
   const yearEl = document.getElementById("detail-year");

@@ -332,7 +332,11 @@
                 <p id="detail-client" class="text-muted">Nombre Cliente</p>
               </div>
               <div class="col-md-6">
-                <h5 style="color: var(--text-main)" data-lang="services">
+                <h5
+                  id="detail-services-label"
+                  style="color: var(--text-main)"
+                  data-lang="services"
+                >
                   SERVICIOS
                 </h5>
                 <p
@@ -459,9 +463,8 @@
         <div class="contact-form-container text-start">
           <form
             id="contact-form"
-            action="mailto:nachadafonte@gmail.com?subject=Propuesta%20de%20proyecto%20-%20Desde%20Portfolio"
-            method="post"
-            enctype="text/plain"
+            data-mailto="nachadafonte@gmail.com"
+            data-mail-subject="Propuesta de proyecto - Desde Portfolio"
           >
             <div class="mb-4">
               <label class="small text-white-50 mb-2" data-lang="name"
@@ -727,10 +730,7 @@
         const form = document.getElementById("contact-form");
         if (!form) return;
         const subject = mailSubjects[currentLang] || mailSubjects.es;
-        form.setAttribute(
-          "action",
-          `mailto:nachadafonte@gmail.com?subject=${encodeURIComponent(subject)}`
-        );
+        form.dataset.mailSubject = subject;
       }
 
       // Apply translations for the main index (uses `translations`)
