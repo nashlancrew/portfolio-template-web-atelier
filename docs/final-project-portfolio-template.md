@@ -73,6 +73,14 @@ Side-pages:
 
 - 404 page
 
+Captures:
+
+![Cap 1](assets/images/cap%201.png)
+![Cap 3](assets/images/cap%203.png)
+![Cap 4](assets/images/cap%204.png)
+![Cap 5](assets/images/cap%205.png)
+![Cap 6](assets/images/cap%206.png)
+
 ## AI Usage
 
 Codex (GPT-5), Gemini and Claude was used during development to assist with implementation and debugging. Major implementations are documented in `docs/plan-*.md`.
