@@ -41,9 +41,12 @@
         overflow-x: hidden;
         text-align: center;
         padding: 2rem;
-        background-color: #fdfbf6;
-        color: #1a1a1a;
-        background-image: radial-gradient(#e0ded5 1px, transparent 1px);
+        background-color: var(--bg-color);
+        color: var(--text-main);
+        background-image: radial-gradient(
+          var(--dot-color) 1px,
+          transparent 1px
+        );
         background-size: 30px 30px;
       }
 
@@ -90,13 +93,13 @@
         font-weight: 700;
         text-transform: uppercase;
         letter-spacing: 0.1em;
-        color: #1a1a1a;
+        color: var(--text-main);
       }
 
       /* --- BOTÓN HOME --- */
       .btn-home {
-        background: #1a1a1a;
-        color: #fdfbf6;
+        background: var(--text-main);
+        color: var(--bg-color);
         padding: 15px 40px;
         border-radius: 50px;
         font-family: "Syne", sans-serif;
@@ -104,7 +107,7 @@
         text-decoration: none;
         transition: transform 0.3s ease;
         display: inline-block;
-        border: 2px solid #1a1a1a;
+        border: 2px solid var(--text-main);
         cursor: none;
         white-space: nowrap;
       }
@@ -112,102 +115,61 @@
       .btn-home:hover {
         transform: scale(1.05);
         background: transparent;
-        color: #1a1a1a;
+        color: var(--text-main);
       }
 
-      /* --- FANTASMA --- */
-      .mascot-container {
-        position: absolute;
-        bottom: 0;
-        top: auto;
-        right: 10%;
-        width: clamp(100px, 18vw, 180px);
-        aspect-ratio: 150/180;
-        z-index: -1;
-        animation: float-404 6s ease-in-out infinite;
-        opacity: 0.9;
-      }
-
-      .mascot-body {
-        width: 100%;
-        height: 100%;
-        background: #2b59c3;
-        border-radius: 50% 50% 0 0;
+      /* --- STICKER 404 --- */
+      .error-heading {
         position: relative;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        box-shadow: 10px 10px 0px rgba(0, 0, 0, 0.1);
+        display: inline-block;
       }
-
-      .mascot-body::before,
-      .mascot-body::after {
-        content: "";
+      .sticker-404 {
         position: absolute;
-        top: 40%;
-        width: 15px;
-        height: 25px;
-        background: #fff;
-        border-radius: 50px;
-        animation: blink 4s infinite;
+        top: 65%;
+        right: -10%;
+        width: clamp(140px, 20vw, 220px);
+        aspect-ratio: 450/420;
+        z-index: 4;
+        pointer-events: none;
+        animation: float-404 4s ease-in-out infinite;
       }
-      .mascot-body::before {
-        left: 35%;
-      }
-      .mascot-body::after {
-        right: 35%;
-      }
-
-      .mascot-legs {
-        position: absolute;
-        bottom: -10px;
-        left: 0;
+      .sticker-404-base {
+        display: block;
         width: 100%;
-        height: 20px;
-        background-size: 30px 30px;
-        background-image: radial-gradient(
-          circle at 15px 0,
-          #2b59c3 15px,
-          transparent 16px
-        );
-        background-repeat: repeat-x;
+        height: auto;
       }
-
+      .sticker-404-wheel {
+        position: absolute;
+        top: 3.5%;
+        right: 31%;
+        width: 20%;
+        height: auto;
+        transform-origin: 50% 50%;
+        animation: spin-wheel 6s linear infinite;
+      }
+      @keyframes spin-wheel {
+        from {
+          transform: rotate(0deg);
+        }
+        to {
+          transform: rotate(360deg);
+        }
+      }
       @keyframes float-404 {
         0%,
         100% {
-          transform: translateY(0) rotate(5deg);
+          transform: translateY(0);
         }
         50% {
-          transform: translateY(10px) rotate(-5deg);
+          transform: translateY(-20px);
         }
       }
 
-      @keyframes blink {
-        0%,
-        96%,
-        100% {
-          height: 25px;
-        }
-        98% {
-          height: 2px;
-        }
-      }
-
-      /* --- HERRAMIENTAS FIJAS --- */
-      .tools-panel-fixed {
-        position: fixed;
-        bottom: 30px;
-        left: 50%;
-        transform: translateX(-50%);
-        z-index: 100;
-        display: flex;
-        gap: 15px;
-        background: #fff;
-        padding: 10px 25px;
-        border-radius: 50px;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-        border: 1px solid rgba(0, 0, 0, 0.1);
+      .error-code,
+      .error-msg,
+      .btn-home {
+        position: relative;
+        z-index: 2;
       }
 
       /* --- WIDGET IDIOMA (DESPLIEGUE HORIZONTAL) --- */
@@ -269,6 +231,7 @@
         transform: rotate(90deg); /* Rotación para apertura lateral */
       }
 
+
       .lang-option {
         width: 40px;
         height: 40px;
@@ -316,14 +279,21 @@
     <!-- Contenido -->
     <div class="error-container">
       <div class="error-content-wrapper">
-        <!-- FANTASMA -->
-        <div class="mascot-container">
-          <div class="mascot-body">
-            <div class="mascot-legs"></div>
+        <div class="error-heading">
+          <h1 class="error-code hover-trigger">404</h1>
+          <div class="sticker-404" aria-hidden="true">
+            <img
+              src="assets/images/sticker%20404%20base.png"
+              alt=""
+              class="sticker-404-base"
+            />
+            <img
+              src="assets/images/sticker-404-animation.png"
+              alt=""
+              class="sticker-404-wheel"
+            />
           </div>
         </div>
-
-        <h1 class="error-code hover-trigger">404</h1>
         <!-- Texto Traducible -->
         <p class="error-msg" data-lang="error-msg">Te has salido del lienzo</p>
 
@@ -372,58 +342,6 @@
       </div>
     </div>
 
-    <!-- UI Herramientas (CON AMARILLO AÑADIDO) -->
-    <div class="tools-panel-fixed" id="tools-panel">
-      <div
-        class="color-dot hover-trigger"
-        style="
-          width: 24px;
-          height: 24px;
-          border-radius: 50%;
-          background: #1a1a1a;
-          border: 1px solid #ddd;
-        "
-        onclick="setColor('#1A1A1A')"
-      ></div>
-      <div
-        class="color-dot hover-trigger"
-        style="
-          width: 24px;
-          height: 24px;
-          border-radius: 50%;
-          background: #2b59c3;
-        "
-        onclick="setColor('#2B59C3')"
-      ></div>
-      <!-- Color Amarillo Añadido Aquí -->
-      <div
-        class="color-dot hover-trigger"
-        style="
-          width: 24px;
-          height: 24px;
-          border-radius: 50%;
-          background: #f4d35e;
-        "
-        onclick="setColor('#F4D35E')"
-      ></div>
-      <div
-        class="color-dot hover-trigger"
-        style="
-          width: 24px;
-          height: 24px;
-          border-radius: 50%;
-          background: #ff595e;
-        "
-        onclick="setColor('#FF595E')"
-      ></div>
-      <div style="width: 1px; background: #ccc; margin: 0 5px"></div>
-      <i
-        class="fa-solid fa-trash hover-trigger pt-1"
-        onclick="clearCanvas()"
-        style="color: #1a1a1a; font-size: 1.2rem"
-      ></i>
-    </div>
-
     <script>
       // --- 1. LÓGICA DE IDIOMA ---
       const translations404 = {
@@ -467,6 +385,14 @@
         });
 
         toggleLangMenu();
+      }
+
+      try {
+        if (localStorage.getItem("dark-mode-enabled") === "true") {
+          document.body.classList.add("dark-mode");
+        }
+      } catch (error) {
+        // Ignore storage errors
       }
 
       // --- 2. CURSOR ---

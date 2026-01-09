@@ -48,6 +48,48 @@ body {
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
+/* --- LOADING SCREEN --- */
+#loading-screen {
+  position: fixed;
+  inset: 0;
+  background: var(--bg-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 3000;
+  transition: opacity 0.6s ease, visibility 0.6s ease;
+}
+#loading-screen.is-hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+.loading-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  text-align: center;
+}
+.loading-sticker {
+  width: clamp(240px, 42vw, 520px);
+  animation: float 4s ease-in-out infinite;
+}
+.loading-sticker img {
+  width: 100%;
+  height: auto;
+  display: block;
+  transform-origin: center;
+  animation: spin 1.2s linear infinite;
+}
+.loading-text {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.9rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
 /* --- ACCESSIBLE FOCUS STYLES --- */
 a:focus-visible,
 button:focus-visible,
@@ -480,6 +522,18 @@ body.dark-mode #about .btn-outline-dark:focus-visible {
 .gallery-item:hover {
   transform: translateY(-10px);
 }
+.gallery-meta {
+  width: 100%;
+  gap: 0.9rem;
+  flex-wrap: wrap;
+}
+.gallery-meta h4 {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+.gallery-meta .badge {
+  flex-shrink: 0;
+}
 .gallery-img-wrapper {
   width: 100%;
   height: 450px;
@@ -713,6 +767,12 @@ body.dark-mode #about .btn-outline-dark:focus-visible {
 }
 .project-extra-media.is-flex-grid.is-grid-4x2 {
   grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+.project-extra-media.is-flex-grid.is-grid-portrait {
+  grid-template-columns: repeat(auto-fit, minmax(140px, 180px));
+}
+.project-extra-media.is-flex-grid.is-grid-portrait .project-extra-item {
+  aspect-ratio: 3 / 4;
 }
 .project-extra-media.is-flex-grid .project-extra-item {
   margin: 0;
@@ -989,6 +1049,9 @@ body.dark-mode #about .btn-outline-dark:focus-visible {
   .project-extra-media.is-flex-grid.is-grid-4x2 {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
+  .project-extra-media.is-flex-grid.is-grid-portrait {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
   .collage-viewer-nav {
     width: 38px;
     height: 38px;
@@ -1128,14 +1191,14 @@ footer {
   }
   /* Contenedor principal del personaje */
   .sticker-container {
-    width: min(60vw, 220px);
+    width: min(45vw, 200px);
     position: absolute;
     right: 6vw;
     bottom: 10vh;
     top: auto;
     left: auto;
-    --sticker-offset-x: -90px;
-    --sticker-offset-y: -70px;
+    --sticker-offset-x: -120px;
+    --sticker-offset-y: -140px;
     --eyes-x: 44%;
     --eyes-y: 14%;
     --eyes-width: 52%;
@@ -1187,6 +1250,12 @@ footer {
   }
   #about {
     padding-top: 15vh;
+  }
+}
+
+@media (max-width: 767px) {
+  .sticker-container {
+    --eyes-y: calc(14% + 34px);
   }
 }
 

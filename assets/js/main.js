@@ -152,7 +152,7 @@ Het project werd in juli 2025 gepresenteerd op het Sfinks Festival.`,
     },
     img: "assets/images/IMG_5896.jpg",
     mediaLayout: "grid",
-    extraMediaLayout: "grid",
+    extraMediaLayout: "grid-portrait",
     extraMedia: [
       { type: "image", src: "assets/images/IMG_5896.jpg" },
       { type: "image", src: "assets/images/IMG_5897.jpg" },
@@ -186,6 +186,7 @@ Ontworpen met een grunge-esthetiek in duotone (blauw/geel), waarbij digitale tex
     id: 5,
     title: { es: "Ilustraciones", en: "Illustrations", nl: "Illustraties" },
     category: { es: "Ilustraciones", en: "Illustrations", nl: "Illustraties" },
+    year: "2022 - ongoing",
     img: "https://images.unsplash.com/photo-1503023345310-bd7c1de61c7d?q=80&w=2564&auto=format&fit=crop",
     mediaLayout: "collage",
     detailMode: "gallery-only",
@@ -226,11 +227,13 @@ gsap.registerPlugin(ScrollTrigger);
 let lenis;
 let isPlaygroundActive = false;
 let hasInitialized = false;
+let stickerFloatTween = null;
 const prefersReducedMotion = window.matchMedia(
   "(prefers-reduced-motion: reduce)"
 ).matches;
 
 function init() {
+  applyStoredDarkMode();
   // Smooth Scroll Optimizado
   if (prefersReducedMotion) {
     lenis = {
@@ -310,10 +313,26 @@ function init() {
   });
 }
 
+function hideLoadingScreen() {
+  const screen = document.getElementById("loading-screen");
+  if (!screen) return;
+  if (prefersReducedMotion) {
+    screen.remove();
+    return;
+  }
+  screen.classList.add("is-hidden");
+  const removeScreen = () => {
+    if (screen.isConnected) screen.remove();
+  };
+  screen.addEventListener("transitionend", removeScreen, { once: true });
+  setTimeout(removeScreen, 800);
+}
+
 window.addEventListener("load", () => {
   if (hasInitialized) return;
   hasInitialized = true;
   init();
+  hideLoadingScreen();
 });
 
 function scheduleStickerRelayout() {
@@ -337,17 +356,6 @@ function positionStickerOnTeaA() {
   const anchor = document.getElementById("tea-A");
   const hero = document.getElementById("hero");
   if (!container || !anchor || !hero) return;
-  const isMobile = window.matchMedia("(max-width: 767px)").matches;
-  if (isMobile) {
-    container.style.removeProperty("left");
-    container.style.removeProperty("top");
-    container.style.removeProperty("right");
-    container.style.removeProperty("bottom");
-    container.style.removeProperty("position");
-    const baseEl = container.querySelector(".base");
-    if (baseEl) baseEl.style.removeProperty("transform");
-    return;
-  }
 
   const baseEl = container.querySelector(".base");
   const baseRect = (baseEl || container).getBoundingClientRect();
@@ -386,7 +394,7 @@ window.positionStickerOnTeaA = positionStickerOnTeaA;
 window.addEventListener("resize", () => {
   // slight debounce
   clearTimeout(window.__stickerResizeTimeout);
-  window.__stickerResizeTimeout = setTimeout(positionStickerOnTeaA, 80);
+  window.__stickerResizeTimeout = setTimeout(scheduleStickerRelayout, 80);
 });
 
 function renderArchive() {
@@ -430,7 +438,7 @@ function renderArchive() {
           <div class="${wrapperClass}">
             ${previewMarkup}
           </div>
-          <div class="mt-3 d-flex justify-content-between align-items-center">
+          <div class="mt-3 d-flex justify-content-between align-items-center gallery-meta">
             <h4 class="m-0" style="color: var(--text-main); font-size: 1.2rem;">${title}</h4>
             <span class="badge rounded-pill text-bg-secondary border">${p.year}</span>
           </div>
@@ -676,6 +684,16 @@ function clearCanvas() {
 }
 
 // --- UI UTILS ---
+const DARK_MODE_STORAGE_KEY = "dark-mode-enabled";
+function applyStoredDarkMode() {
+  try {
+    if (localStorage.getItem(DARK_MODE_STORAGE_KEY) === "true") {
+      document.body.classList.add("dark-mode");
+    }
+  } catch (error) {
+    // Ignore storage errors
+  }
+}
 function toggleTools() {
   // Only allow toggling tools when inside playground
   if (!isPlaygroundActive) return;
@@ -691,6 +709,14 @@ function toggleContactForm(btn) {
 }
 function toggleDarkMode() {
   document.body.classList.toggle("dark-mode");
+  try {
+    localStorage.setItem(
+      DARK_MODE_STORAGE_KEY,
+      document.body.classList.contains("dark-mode") ? "true" : "false"
+    );
+  } catch (error) {
+    // Ignore storage errors
+  }
 }
 function setupKeyboardActivation() {
   document.addEventListener("keydown", (event) => {
@@ -880,6 +906,7 @@ function updateProjectMediaLayout(p) {
     typeof p.extraMediaLayout === "string" &&
     p.extraMediaLayout.startsWith("grid");
   const isGrid4x2 = p.extraMediaLayout === "grid-4x2";
+  const isGridPortrait = p.extraMediaLayout === "grid-portrait";
   const hasEmbed = Boolean(p.embed);
   const hasExtra = Array.isArray(p.extraMedia) && p.extraMedia.length > 0;
   mediaWrap.classList.toggle("is-split", hasEmbed && hasExtra);
@@ -888,6 +915,7 @@ function updateProjectMediaLayout(p) {
     extraMedia.classList.toggle("is-collage", isCollage);
     extraMedia.classList.toggle("is-flex-grid", hasExtra && isGrid);
     extraMedia.classList.toggle("is-grid-4x2", hasExtra && isGrid4x2);
+    extraMedia.classList.toggle("is-grid-portrait", hasExtra && isGridPortrait);
   }
 }
 const viewerState = {
@@ -1015,7 +1043,12 @@ function collectViewerItems(container, selector, srcKey, altKey) {
   return { nodes, items };
 }
 function openViewerFromContainer(container, selector, srcKey, altKey, target) {
-  const { nodes, items } = collectViewerItems(container, selector, srcKey, altKey);
+  const { nodes, items } = collectViewerItems(
+    container,
+    selector,
+    srcKey,
+    altKey
+  );
   if (!items.length) return;
   const index = Math.max(nodes.indexOf(target), 0);
   openMediaViewer(items, index);
@@ -1175,8 +1208,13 @@ function renderExtraMedia(p, title, lang) {
     typeof p.extraMediaLayout === "string" &&
     p.extraMediaLayout.startsWith("grid");
   const isGrid4x2 = p.extraMediaLayout === "grid-4x2";
+  const isGridPortrait = p.extraMediaLayout === "grid-portrait";
   container.classList.toggle("is-flex-grid", items.length > 0 && isGrid);
   container.classList.toggle("is-grid-4x2", items.length > 0 && isGrid4x2);
+  container.classList.toggle(
+    "is-grid-portrait",
+    items.length > 0 && isGridPortrait
+  );
   if (!items.length) {
     container.innerHTML = "";
     container.hidden = true;
@@ -1604,15 +1642,32 @@ function initStickerAnimation() {
       console.warn("sticker: inline style guard failed", e);
     }
 
-    // 2. Animación de flotación (Levitación suave)
-    gsap.to(".sticker-container", {
-      y: 15, // Mueve 15px hacia arriba
-      rotation: 2, // Rota ligeramente
-      duration: 2.5,
-      ease: "sine.inOut", // Movimiento muy fluido tipo ola
-      yoyo: true, // Va y vuelve
-      repeat: -1, // Infinito
-    });
+    const updateStickerFloat = () => {
+      const isNarrow = window.matchMedia("(max-width: 770px)").matches;
+      if (stickerFloatTween) {
+        stickerFloatTween.kill();
+        stickerFloatTween = null;
+      }
+      if (isNarrow) {
+        gsap.set(container, { y: 0, rotation: 0 });
+        return;
+      }
+      // 2. Animación de flotación (Levitación suave)
+      stickerFloatTween = gsap.to(container, {
+        y: 15, // Mueve 15px hacia arriba
+        rotation: 2, // Rota ligeramente
+        duration: 2.5,
+        ease: "sine.inOut", // Movimiento muy fluido tipo ola
+        yoyo: true, // Va y vuelve
+        repeat: -1, // Infinito
+      });
+    };
+
+    updateStickerFloat();
+    if (!container.__floatResizeInit) {
+      container.__floatResizeInit = true;
+      window.addEventListener("resize", updateStickerFloat);
+    }
 
     // 3. Animación de parpadeo (Intercambio de imágenes)
     const eyesOpen = document.querySelectorAll(".eyes-open");
